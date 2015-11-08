@@ -2,7 +2,7 @@ object frmPicSSConvert: TfrmPicSSConvert
   Left = 0
   Top = 0
   Caption = 'Picture Spreadsheet Converter'
-  ClientHeight = 378
+  ClientHeight = 541
   ClientWidth = 703
   Color = clBtnFace
   Constraints.MinHeight = 250
@@ -24,10 +24,10 @@ object frmPicSSConvert: TfrmPicSSConvert
     Height = 73
     AutoSize = False
     Caption = 
-      'This program takes a spreadsheet with names, and picture file po' +
-      'inters and converts the information to a database. It was built ' +
-      'for the Beaverton SDA Church lobby picture board by David Cornel' +
-      'ius.'
+      'This program takes a spreadsheet with names and picture file poi' +
+      'nters and generates web pages from templates for a picture direc' +
+      'tory kiosk. It was built for the Beaverton SDA Church lobby pict' +
+      'ure board by David Cornelius.'
     WordWrap = True
   end
   object btnFindSpreadsheet: TSpeedButton
@@ -39,24 +39,78 @@ object frmPicSSConvert: TfrmPicSSConvert
   end
   object SpeedButton1: TSpeedButton
     Left = 351
-    Top = 206
+    Top = 230
     Width = 26
     Height = 26
     Action = actSetRootPicFolder
   end
   object SpeedButton2: TSpeedButton
     Left = 351
-    Top = 255
+    Top = 312
     Width = 26
     Height = 26
     Action = actSetWebTemplateFolder
   end
   object SpeedButton3: TSpeedButton
     Left = 351
-    Top = 303
+    Top = 407
     Width = 26
     Height = 26
     Action = actSetWebOutputFolder
+  end
+  object Label2: TLabel
+    Left = 8
+    Top = 343
+    Width = 203
+    Height = 16
+    Caption = 'Searches for *.HTML; sub-folders included.'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGrayText
+    Font.Height = -13
+    Font.Name = 'Arial Narrow'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 8
+    Top = 438
+    Width = 169
+    Height = 16
+    Caption = 'Like-named files will be over-written.'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGrayText
+    Font.Height = -13
+    Font.Name = 'Arial Narrow'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 8
+    Top = 261
+    Width = 321
+    Height = 16
+    Caption = 
+      'Pictures files listed in spreadsheet should be located under thi' +
+      's folder.'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGrayText
+    Font.Height = -13
+    Font.Name = 'Arial Narrow'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 8
+    Top = 134
+    Width = 298
+    Height = 16
+    Caption = 'Expected Columns: Last Name, Parent(s), Children, Picture File'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clGrayText
+    Font.Height = -13
+    Font.Name = 'Arial Narrow'
+    Font.Style = []
+    ParentFont = False
   end
   object edtSpreadsheetFile: TLabeledEdit
     Left = 8
@@ -72,16 +126,15 @@ object frmPicSSConvert: TfrmPicSSConvert
     Left = 383
     Top = 0
     Width = 320
-    Height = 378
+    Height = 541
     Align = alRight
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
-    ExplicitWidth = 210
-    ExplicitHeight = 350
+    ExplicitHeight = 449
   end
   object btnOpen: TBitBtn
     Left = 8
-    Top = 134
+    Top = 158
     Width = 105
     Height = 35
     Action = actParseSpreadsheet
@@ -90,7 +143,7 @@ object frmPicSSConvert: TfrmPicSSConvert
   end
   object edtRootPicFolder: TLabeledEdit
     Left = 8
-    Top = 207
+    Top = 231
     Width = 345
     Height = 24
     EditLabel.Width = 114
@@ -100,7 +153,7 @@ object frmPicSSConvert: TfrmPicSSConvert
   end
   object edtHTMLTemplateFolder: TLabeledEdit
     Left = 8
-    Top = 257
+    Top = 313
     Width = 345
     Height = 24
     EditLabel.Width = 135
@@ -110,17 +163,17 @@ object frmPicSSConvert: TfrmPicSSConvert
   end
   object edtHTMLOutputFolder: TLabeledEdit
     Left = 8
-    Top = 304
+    Top = 408
     Width = 345
     Height = 24
-    EditLabel.Width = 119
+    EditLabel.Width = 182
     EditLabel.Height = 16
-    EditLabel.Caption = '&HTML Output Folder:'
+    EditLabel.Caption = '&Generated HTML Output Folder:'
     TabOrder = 5
   end
   object BitBtn1: TBitBtn
     Left = 8
-    Top = 335
+    Top = 482
     Width = 105
     Height = 35
     Action = actGenerateWebPages
@@ -129,7 +182,7 @@ object frmPicSSConvert: TfrmPicSSConvert
   end
   object aclMain: TActionList
     Images = imlMain
-    Left = 400
+    Left = 456
     Top = 64
     object actFindSpreadsheet: TAction
       Hint = 'Find Spreadsheet'
@@ -173,7 +226,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     Left = 456
     Top = 112
     Bitmap = {
-      494C010101000800400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010101000800480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000053B6E40037ABE4003BAE
       E60039ACE5003AADE6003AADE6003AADE6003AADE60039ACE5003CAEE60037AA
@@ -313,27 +366,14 @@ object frmPicSSConvert: TfrmPicSSConvert
       000000000000}
   end
   object ccRegistryLayoutSaver: TccRegistryLayoutSaver
-    Left = 424
-    Top = 232
+    Left = 456
+    Top = 208
   end
   object dlgOpenSpreadsheet: TOpenDialog
     Filter = 'Spreadsheet files|*.xls;*.xlsx|All files|*.*'
     Options = [ofReadOnly, ofHideReadOnly, ofNoChangeDir, ofPathMustExist, ofFileMustExist, ofNoTestFileCreate, ofEnableSizing]
     Title = 'Find the Picture Spreadsheet'
-    Left = 456
-    Top = 168
-  end
-  object SQLiteUniProvider: TSQLiteUniProvider
-    Left = 288
-    Top = 288
-  end
-  object UniConnection1: TUniConnection
-    Left = 232
-    Top = 272
-  end
-  object UniTable1: TUniTable
-    Connection = UniConnection1
-    Left = 176
-    Top = 248
+    Left = 352
+    Top = 160
   end
 end

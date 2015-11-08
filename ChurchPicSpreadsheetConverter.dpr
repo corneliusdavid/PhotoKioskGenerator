@@ -3,7 +3,8 @@ program ChurchPicSpreadsheetConverter;
 uses
   Vcl.Forms,
   ufrmMain in 'ufrmMain.pas' {frmPicSSConvert},
-  udmChurchPicsWebBroker in 'udmChurchPicsWebBroker.pas' {dmChurchPicsWebBroker: TDataModule};
+  udmChurchPicsWebBroker in 'udmChurchPicsWebBroker.pas' {dmChurchPicsWebBroker: TDataModule},
+  uSearchRecList in 'V:\lib\CorneliusConcepts\uSearchRecList.pas';
 
 {$R *.res}
 
