@@ -2,8 +2,8 @@ object frmPicSSConvert: TfrmPicSSConvert
   Left = 0
   Top = 0
   Caption = 'Picture Spreadsheet Converter'
-  ClientHeight = 309
-  ClientWidth = 593
+  ClientHeight = 378
+  ClientWidth = 703
   Color = clBtnFace
   Constraints.MinHeight = 250
   Constraints.MinWidth = 500
@@ -32,14 +32,35 @@ object frmPicSSConvert: TfrmPicSSConvert
   end
   object btnFindSpreadsheet: TSpeedButton
     Left = 351
-    Top = 112
+    Top = 103
     Width = 26
-    Height = 24
+    Height = 26
     Action = actFindSpreadsheet
+  end
+  object SpeedButton1: TSpeedButton
+    Left = 351
+    Top = 206
+    Width = 26
+    Height = 26
+    Action = actSetRootPicFolder
+  end
+  object SpeedButton2: TSpeedButton
+    Left = 351
+    Top = 255
+    Width = 26
+    Height = 26
+    Action = actSetWebTemplateFolder
+  end
+  object SpeedButton3: TSpeedButton
+    Left = 351
+    Top = 303
+    Width = 26
+    Height = 26
+    Action = actSetWebOutputFolder
   end
   object edtSpreadsheetFile: TLabeledEdit
     Left = 8
-    Top = 112
+    Top = 104
     Width = 345
     Height = 24
     EditLabel.Width = 98
@@ -50,20 +71,61 @@ object frmPicSSConvert: TfrmPicSSConvert
   object lbConvertLog: TListBox
     Left = 383
     Top = 0
-    Width = 210
-    Height = 309
+    Width = 320
+    Height = 378
     Align = alRight
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
+    ExplicitWidth = 210
+    ExplicitHeight = 350
   end
   object btnOpen: TBitBtn
     Left = 8
-    Top = 142
-    Width = 89
+    Top = 134
+    Width = 105
     Height = 35
-    Action = actOpenSpreadsheet
-    Caption = '&Convert'
+    Action = actParseSpreadsheet
+    Caption = '&Parse and List'
     TabOrder = 2
+  end
+  object edtRootPicFolder: TLabeledEdit
+    Left = 8
+    Top = 207
+    Width = 345
+    Height = 24
+    EditLabel.Width = 114
+    EditLabel.Height = 16
+    EditLabel.Caption = '&Root Picture Folder:'
+    TabOrder = 3
+  end
+  object edtHTMLTemplateFolder: TLabeledEdit
+    Left = 8
+    Top = 257
+    Width = 345
+    Height = 24
+    EditLabel.Width = 135
+    EditLabel.Height = 16
+    EditLabel.Caption = '&HTML Template Folder:'
+    TabOrder = 4
+  end
+  object edtHTMLOutputFolder: TLabeledEdit
+    Left = 8
+    Top = 304
+    Width = 345
+    Height = 24
+    EditLabel.Width = 119
+    EditLabel.Height = 16
+    EditLabel.Caption = '&HTML Output Folder:'
+    TabOrder = 5
+  end
+  object BitBtn1: TBitBtn
+    Left = 8
+    Top = 335
+    Width = 105
+    Height = 35
+    Action = actGenerateWebPages
+    Caption = '&Generate'
+    TabOrder = 6
   end
   object aclMain: TActionList
     Images = imlMain
@@ -74,16 +136,44 @@ object frmPicSSConvert: TfrmPicSSConvert
       ImageIndex = 0
       OnExecute = actFindSpreadsheetExecute
     end
-    object actOpenSpreadsheet: TAction
-      Caption = '&Convert'
-      OnExecute = actOpenSpreadsheetExecute
+    object actParseSpreadsheet: TAction
+      Caption = '&Parse and List'
+      OnExecute = actParseSpreadsheetExecute
+    end
+    object actSetRootPicFolder: TBrowseForFolder
+      DialogCaption = 'Set Root Picture Folder'
+      BrowseOptions = [bifBrowseForComputer, bifNewDialogStyle, bifNoNewFolderButton, bifUseNewUI, bifValidate]
+      BrowseOptionsEx = []
+      ImageIndex = 0
+      BeforeExecute = actSetRootPicFolderBeforeExecute
+      OnAccept = actSetRootPicFolderAccept
+    end
+    object actSetWebTemplateFolder: TBrowseForFolder
+      DialogCaption = 'Select HTML Template Folder'
+      BrowseOptions = [bifBrowseForComputer, bifNewDialogStyle, bifNoNewFolderButton, bifUseNewUI, bifValidate]
+      BrowseOptionsEx = []
+      ImageIndex = 0
+      BeforeExecute = actSetWebTemplateFolderBeforeExecute
+      OnAccept = actSetWebTemplateFolderAccept
+    end
+    object actSetWebOutputFolder: TBrowseForFolder
+      DialogCaption = 'Select HTML Output Folder'
+      BrowseOptions = [bifBrowseForComputer, bifNewDialogStyle, bifUseNewUI, bifValidate]
+      BrowseOptionsEx = []
+      ImageIndex = 0
+      BeforeExecute = actSetWebOutputFolderBeforeExecute
+      OnAccept = actSetWebOutputFolderAccept
+    end
+    object actGenerateWebPages: TAction
+      Caption = '&Generate'
+      OnExecute = actGenerateWebPagesExecute
     end
   end
   object imlMain: TImageList
     Left = 456
     Top = 112
     Bitmap = {
-      494C010101000800240010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010101000800400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000053B6E40037ABE4003BAE
       E60039ACE5003AADE6003AADE6003AADE6003AADE60039ACE5003CAEE60037AA
@@ -235,15 +325,15 @@ object frmPicSSConvert: TfrmPicSSConvert
   end
   object SQLiteUniProvider: TSQLiteUniProvider
     Left = 288
-    Top = 248
+    Top = 288
   end
   object UniConnection1: TUniConnection
     Left = 232
-    Top = 232
+    Top = 272
   end
   object UniTable1: TUniTable
     Connection = UniConnection1
     Left = 176
-    Top = 208
+    Top = 248
   end
 end
