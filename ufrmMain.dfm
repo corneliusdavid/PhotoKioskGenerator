@@ -2,7 +2,7 @@ object frmPicSSConvert: TfrmPicSSConvert
   Left = 0
   Top = 0
   Caption = 'Picture Spreadsheet Converter'
-  ClientHeight = 541
+  ClientHeight = 446
   ClientWidth = 703
   Color = clBtnFace
   Constraints.MinHeight = 250
@@ -37,33 +37,26 @@ object frmPicSSConvert: TfrmPicSSConvert
     Height = 26
     Action = actFindSpreadsheet
   end
-  object SpeedButton1: TSpeedButton
-    Left = 351
-    Top = 230
-    Width = 26
-    Height = 26
-    Action = actSetRootPicFolder
-  end
   object SpeedButton2: TSpeedButton
     Left = 351
-    Top = 312
+    Top = 232
     Width = 26
     Height = 26
     Action = actSetWebTemplateFolder
   end
   object SpeedButton3: TSpeedButton
     Left = 351
-    Top = 407
+    Top = 327
     Width = 26
     Height = 26
     Action = actSetWebOutputFolder
   end
   object Label2: TLabel
     Left = 8
-    Top = 343
-    Width = 203
+    Top = 263
+    Width = 143
     Height = 16
-    Caption = 'Searches for *.HTML; sub-folders included.'
+    Caption = 'Searches for *.HTML files only'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clGrayText
     Font.Height = -13
@@ -73,7 +66,7 @@ object frmPicSSConvert: TfrmPicSSConvert
   end
   object Label3: TLabel
     Left = 8
-    Top = 438
+    Top = 358
     Width = 169
     Height = 16
     Caption = 'Like-named files will be over-written.'
@@ -84,27 +77,14 @@ object frmPicSSConvert: TfrmPicSSConvert
     Font.Style = []
     ParentFont = False
   end
-  object Label4: TLabel
-    Left = 8
-    Top = 261
-    Width = 321
-    Height = 16
-    Caption = 
-      'Pictures files listed in spreadsheet should be located under thi' +
-      's folder.'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clGrayText
-    Font.Height = -13
-    Font.Name = 'Arial Narrow'
-    Font.Style = []
-    ParentFont = False
-  end
   object Label5: TLabel
     Left = 8
     Top = 134
-    Width = 298
+    Width = 359
     Height = 16
-    Caption = 'Expected Columns: Last Name, Parent(s), Children, Picture File'
+    Caption = 
+      'Expected Columns: Last Name, First Name(s), Optional Children, P' +
+      'icture File'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clGrayText
     Font.Height = -13
@@ -126,11 +106,10 @@ object frmPicSSConvert: TfrmPicSSConvert
     Left = 383
     Top = 0
     Width = 320
-    Height = 541
+    Height = 446
     Align = alRight
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 1
-    ExplicitHeight = 449
   end
   object btnOpen: TBitBtn
     Left = 8
@@ -141,43 +120,47 @@ object frmPicSSConvert: TfrmPicSSConvert
     Caption = '&Parse and List'
     TabOrder = 2
   end
-  object edtRootPicFolder: TLabeledEdit
-    Left = 8
-    Top = 231
-    Width = 345
-    Height = 24
-    EditLabel.Width = 114
-    EditLabel.Height = 16
-    EditLabel.Caption = '&Root Picture Folder:'
-    TabOrder = 3
-  end
   object edtHTMLTemplateFolder: TLabeledEdit
     Left = 8
-    Top = 313
+    Top = 233
     Width = 345
     Height = 24
     EditLabel.Width = 135
     EditLabel.Height = 16
     EditLabel.Caption = '&HTML Template Folder:'
-    TabOrder = 4
+    TabOrder = 3
   end
   object edtHTMLOutputFolder: TLabeledEdit
     Left = 8
-    Top = 408
+    Top = 328
     Width = 345
     Height = 24
     EditLabel.Width = 182
     EditLabel.Height = 16
     EditLabel.Caption = '&Generated HTML Output Folder:'
-    TabOrder = 5
+    TabOrder = 4
   end
   object BitBtn1: TBitBtn
     Left = 8
-    Top = 482
+    Top = 402
     Width = 105
     Height = 35
     Action = actGenerateWebPages
     Caption = '&Generate'
+    TabOrder = 5
+  end
+  object cbTestMode: TCheckBox
+    Left = 119
+    Top = 411
+    Width = 258
+    Height = 17
+    Caption = 'Random picture file names (KIDS###.JPG)'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Arial Narrow'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 6
   end
   object aclMain: TActionList
@@ -198,8 +181,6 @@ object frmPicSSConvert: TfrmPicSSConvert
       BrowseOptions = [bifBrowseForComputer, bifNewDialogStyle, bifNoNewFolderButton, bifUseNewUI, bifValidate]
       BrowseOptionsEx = []
       ImageIndex = 0
-      BeforeExecute = actSetRootPicFolderBeforeExecute
-      OnAccept = actSetRootPicFolderAccept
     end
     object actSetWebTemplateFolder: TBrowseForFolder
       DialogCaption = 'Select HTML Template Folder'
@@ -226,7 +207,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     Left = 456
     Top = 112
     Bitmap = {
-      494C010101000800480010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101010008004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000053B6E40037ABE4003BAE
       E60039ACE5003AADE6003AADE6003AADE6003AADE60039ACE5003CAEE60037AA

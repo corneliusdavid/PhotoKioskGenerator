@@ -21,8 +21,6 @@ type
     dlgOpenSpreadsheet: TOpenDialog;
     btnOpen: TBitBtn;
     actParseSpreadsheet: TAction;
-    edtRootPicFolder: TLabeledEdit;
-    SpeedButton1: TSpeedButton;
     actSetRootPicFolder: TBrowseForFolder;
     edtHTMLTemplateFolder: TLabeledEdit;
     SpeedButton2: TSpeedButton;
@@ -34,15 +32,13 @@ type
     actGenerateWebPages: TAction;
     Label2: TLabel;
     Label3: TLabel;
-    Label4: TLabel;
     Label5: TLabel;
+    cbTestMode: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure actFindSpreadsheetExecute(Sender: TObject);
     procedure actParseSpreadsheetExecute(Sender: TObject);
     procedure actGenerateWebPagesExecute(Sender: TObject);
-    procedure actSetRootPicFolderBeforeExecute(Sender: TObject);
-    procedure actSetRootPicFolderAccept(Sender: TObject);
     procedure actSetWebTemplateFolderBeforeExecute(Sender: TObject);
     procedure actSetWebTemplateFolderAccept(Sender: TObject);
     procedure actSetWebOutputFolderBeforeExecute(Sender: TObject);
@@ -53,8 +49,9 @@ type
     FCurrPicFolder: string;
     procedure AddStatus(const NewStatus: string);
     procedure ParseSpreadsheetTMS(const AFilename: string);
+    procedure ParseSpreadsheetToDataSet(const AFilename: string);
     procedure GenerateWebPagesFromTemplates(const TemplateFolder, OutputFolder,
-                                                  PictureFolder, SpreadsheetFilename: string);
+                                                  SpreadsheetFilename: string);
     procedure WebTemplateFound(const Path: string; var Stop: Boolean);
     procedure WebTemplateProcess(FileInfo: TSearchRec);
   end;
@@ -75,7 +72,6 @@ uses
 procedure TfrmPicSSConvert.FormCreate(Sender: TObject);
 begin
   edtSpreadsheetFile.Text := ccRegistryLayoutSaver.RestoreStrValue('SpreadsheetFilename');
-  edtRootPicFolder.Text := ccRegistryLayoutSaver.RestoreStrValue('PictureFolder');
   edtHTMLTemplateFolder.Text := ccRegistryLayoutSaver.RestoreStrValue('WebTemplatFolder');
   edtHTMLOutputFolder.Text := ccRegistryLayoutSaver.RestoreStrValue('WebOutputFolder');
 end;
@@ -83,7 +79,6 @@ end;
 procedure TfrmPicSSConvert.FormDestroy(Sender: TObject);
 begin
   ccRegistryLayoutSaver.SaveStrValue('SpreadsheetFilename', edtSpreadsheetFile.Text);
-  ccRegistryLayoutSaver.SaveStrValue('PictureFolder', edtRootPicFolder.Text);
   ccRegistryLayoutSaver.SaveStrValue('WebTemplatFolder', edtHTMLTemplateFolder.Text);
   ccRegistryLayoutSaver.SaveStrValue('WebOutputFolder', edtHTMLOutputFolder.Text);
 end;
@@ -105,16 +100,6 @@ begin
     ShowMessage('The file doesn''t exist.')
   else
     ParseSpreadsheetTMS(edtSpreadsheetFile.Text);
-end;
-
-procedure TfrmPicSSConvert.actSetRootPicFolderAccept(Sender: TObject);
-begin
-  edtRootPicFolder.Text := actSetRootPicFolder.Folder;
-end;
-
-procedure TfrmPicSSConvert.actSetRootPicFolderBeforeExecute(Sender: TObject);
-begin
-  actSetRootPicFolder.Folder := edtRootPicFolder.Text;
 end;
 
 procedure TfrmPicSSConvert.actSetWebOutputFolderAccept(Sender: TObject);
@@ -153,12 +138,38 @@ begin
   AddStatus('Reading rows: ' + IntToStr(xls.RowCount));
 
   for r := 1 to xls.RowCount do
-    if xls.ColCountInRow(r) >= 4 then
+    if xls.ColCountInRow(r) > 1 then
       AddStatus(Format('Surname=%s, Primary=%s, Secondary=%s, Filename=%s',
                       [xls.GetStringFromCell(r, 1).ToString,
                        xls.GetStringFromCell(r, 2).ToString,
                        xls.GetStringFromCell(r, 3).ToString,
                        xls.GetStringFromCell(r, 4).ToString]));
+end;
+
+procedure TfrmPicSSConvert.ParseSpreadsheetToDataSet(const AFilename: string);
+var
+  Xls: TExcelFile;
+  r: Integer;
+begin
+  Xls := TXlsFile.Create;
+  xls.Open(AFileName);
+  AddStatus('Reading rows: ' + IntToStr(xls.RowCount));
+
+  dmChurchPicsWebBroker.cdsChurchPics.EmptyDataSet;
+
+  for r := 1 to xls.RowCount do
+    if xls.ColCountInRow(r) > 1 then begin
+      AddStatus(Format('  %s (%s)',
+                      [xls.GetStringFromCell(r, 1).ToString,
+                       xls.GetStringFromCell(r, 2).ToString]));
+
+      dmChurchPicsWebBroker.cdsChurchPics.Insert;
+      dmChurchPicsWebBroker.cdsChurchPicsLastName.AsString := xls.GetStringFromCell(r, 1).ToString;
+      dmChurchPicsWebBroker.cdsChurchPicsFirstNames.AsString := xls.GetStringFromCell(r, 2).ToString;
+      dmChurchPicsWebBroker.cdsChurchPicsChildNames.AsString := xls.GetStringFromCell(r, 3).ToString;
+      dmChurchPicsWebBroker.cdsChurchPicsPictureName.AsString := xls.GetStringFromCell(r, 4).ToString;
+      dmChurchPicsWebBroker.cdsChurchPics.Post;
+    end;
 end;
 
 procedure TfrmPicSSConvert.WebTemplateFound(const Path: string; var Stop: Boolean);
@@ -171,36 +182,35 @@ procedure TfrmPicSSConvert.WebTemplateProcess(FileInfo: TSearchRec);
 begin
   dmChurchPicsWebBroker.ProcessFile(TPath.Combine(FCurrTemplateFolder, FileInfo.Name),
                                     TPath.Combine(FCurrOutputFolder, FileInfo.Name),
-                                    FCurrPicFolder);
+                                    cbTestMode.Checked);
   AddStatus('Generated ' + FileInfo.Name);
 end;
 
 procedure TfrmPicSSConvert.actGenerateWebPagesExecute(Sender: TObject);
 begin
-  if Length(edtRootPicFolder.Text) = 0 then
-    ShowMessage('Please specify the root picture folder.')
-  else if Length(edtHTMLTemplateFolder.Text) = 0 then
+  if Length(edtHTMLTemplateFolder.Text) = 0 then
     ShowMessage('Please specify the HTML Template Folder.')
   else if Length(edtHTMLOutputFolder.Text) = 0 then
     ShowMessage('Please specify the output folder for generated HTML pages.')
-  else if not TDirectory.Exists(edtRootPicFolder.Text) then
-    ShowMessage('Please select a valid folder where the pictures are store.')
   else
     GenerateWebPagesFromTemplates(edtHTMLTemplateFolder.Text,
                                   edtHTMLOutputFolder.Text,
-                                  edtRootPicFolder.Text,
                                   edtSpreadsheetFile.Text);
 end;
 
-procedure TfrmPicSSConvert.GenerateWebPagesFromTemplates(const TemplateFolder,
-                                                               OutputFolder,
-                                                               PictureFolder,
-                                                               SpreadsheetFilename: string);
+procedure TfrmPicSSConvert.GenerateWebPagesFromTemplates(const TemplateFolder, OutputFolder, SpreadsheetFilename: string);
 begin
-  FCurrTemplateFolder := TemplateFolder;
-  FCurrOutputFolder := OutputFolder;
-  FCurrPicFolder := PictureFolder;
-  GetSearchRecs(TemplateFolder, '*.html', False, WebTemplateFound, WebTemplateProcess);
+  ParseSpreadsheetToDataSet(SpreadsheetFilename);
+
+  if dmChurchPicsWebBroker.cdsChurchPics.RecordCount = 0 then
+    ShowMessage('No data found in spreadsheet.')
+  else begin
+    AddStatus(Format('Generating web pages for %d directory entries.', [dmChurchPicsWebBroker.cdsChurchPics.RecordCount]));
+
+    FCurrTemplateFolder := TemplateFolder;
+    FCurrOutputFolder := OutputFolder;
+    GetSearchRecs(TemplateFolder, '*.html', False, WebTemplateFound, WebTemplateProcess);
+  end;
 end;
 
 end.

@@ -3,15 +3,21 @@
 <html>
   <head>
     <title>Beaverton SDA Church Photo Directory</title>
+	<meta charset="windows-1252">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/ ?3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/ ?1.4.2/respond.min.js"></script>
+	<![endif]-->
   </head>
+<body>
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.js"></script>
 
-  <body>
-    <#IndexChar>
-    <blockquote>
-        <strong><#LastName></strong><br />
-        <#FirstNames><br />
-        <#ChildNames>
-    </blockquote>
+    <#PhotoList PhotoRowTemplate="PhotoRow.htm">
 
   </body>
 </html>

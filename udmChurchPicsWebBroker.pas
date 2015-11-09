@@ -3,22 +3,33 @@ unit udmChurchPicsWebBroker;
 interface
 
 uses
+  MidasLib,
   System.SysUtils, System.Classes,
-  Web.DBWeb, Web.HTTPApp, Web.HTTPProd;
+  Web.DBWeb, Web.HTTPApp, Web.HTTPProd, Web.DSProd, Data.DB, Datasnap.DBClient;
 
 type
   TdmChurchPicsWebBroker = class(TDataModule)
-    PageProducer: TPageProducer;
-    procedure PageProducerHTMLTag(Sender: TObject; Tag: TTag; const TagString: string; TagParams: TStrings;
+    cdsChurchPics: TClientDataSet;
+    cdsChurchPicsLastName: TStringField;
+    cdsChurchPicsFirstNames: TStringField;
+    cdsChurchPicsChildNames: TStringField;
+    cdsChurchPicsPictureName: TStringField;
+    ppPhotoDirList: TPageProducer;
+    ppPhotoRow: TPageProducer;
+    procedure ppPhotoDirListHTMLTag(Sender: TObject; Tag: TTag; const TagString: string; TagParams: TStrings; var ReplaceText: string);
+    procedure ppPhotoRowHTMLTag(Sender: TObject; Tag: TTag; const TagString: string; TagParams: TStrings;
       var ReplaceText: string);
   private
-    FPicFolder: string;
+    FTemplateFolder: string;
+    FPriorIndexChar: string;
+    FRandomKidPics: Boolean;
     function ProduceIndexChar: string;
     function ProduceLastName: string;
     function ProduceFirstNames: string;
     function ProduceChildNames: string;
+    function ProducePictureFilename: string;
   public
-    procedure ProcessFile(const InputFilename, OutputFilename, PicFolder: string);
+    procedure ProcessFile(const InputFilename, OutputFilename: string; const TestMode: Boolean);
   end;
 
 var
@@ -30,9 +41,29 @@ implementation
 
 {$R *.dfm}
 
+uses
+  System.StrUtils, System.IOUtils;
+
 { TdmChurchPicsWebBroker }
 
-procedure TdmChurchPicsWebBroker.PageProducerHTMLTag(Sender: TObject; Tag: TTag; const TagString: string;
+procedure TdmChurchPicsWebBroker.ppPhotoDirListHTMLTag(Sender: TObject; Tag: TTag; const TagString: string;
+  TagParams: TStrings; var ReplaceText: string);
+begin
+  ReplaceText := EmptyStr;
+
+  if SameText(TagString, 'PhotoList') then begin
+
+    cdsChurchPics.First;
+    while not cdsChurchPics.Eof do begin
+      ppPhotoRow.HTMLFile := TPath.Combine(FTemplateFolder, TagParams.Values['PhotoRowTemplate']);
+      ReplaceText := ReplaceText + ppPhotoRow.Content;
+
+      cdsChurchPics.Next;
+    end;
+  end;
+end;
+
+procedure TdmChurchPicsWebBroker.ppPhotoRowHTMLTag(Sender: TObject; Tag: TTag; const TagString: string;
   TagParams: TStrings; var ReplaceText: string);
 begin
   if SameText(TagString, 'IndexChar') then
@@ -42,40 +73,67 @@ begin
   else if SameText(TagString, 'FirstNames') then
     ReplaceText := ProduceFirstNames
   else if SameText(TagString, 'ChildNames') then
-    ReplaceText := ProduceChildNames;
+    ReplaceText := ProduceChildNames
+  else if SameText(TagString, 'PictureFile') then
+    ReplaceText := ProducePictureFilename;
 end;
 
-procedure TdmChurchPicsWebBroker.ProcessFile(const InputFilename, OutputFilename, PicFolder: string);
+procedure TdmChurchPicsWebBroker.ProcessFile(const InputFilename, OutputFilename: string; const TestMode: Boolean);
 var
   OutputWebPage: TextFile;
 begin
-  PageProducer.HTMLFile := InputFilename;
-  FPicFolder := PicFolder;
+  FTemplateFolder := ExtractFilePath(InputFilename);
+  FRandomKidPics := TestMode;
 
   AssignFile(OutputWebPage, OutputFilename);
   Rewrite(OutputWebPage);
-  Write(OutputWebPage, PageProducer.Content);
+
+  ppPhotoDirList.HTMLFile := InputFilename;
+  Write(OutputWebPage, ppPhotoDirList.Content);
+
   CloseFile(OutputWebPage);
 end;
 
 function TdmChurchPicsWebBroker.ProduceChildNames: string;
 begin
-  Result := 'Billy, Joey, Sally';
+  Result := cdsChurchPicsChildNames.AsString;
 end;
 
 function TdmChurchPicsWebBroker.ProduceFirstNames: string;
 begin
-  Result := 'Bob &amp; Sue';
+  Result := cdsChurchPicsFirstNames.AsString;
 end;
 
 function TdmChurchPicsWebBroker.ProduceIndexChar: string;
 begin
-  Result := 'A';
+  Result := RightStr(cdsChurchPicsLastName.AsString, 1);
+
+  if SameText(FPriorIndexChar, Result) then
+    Result := EmptyStr;
+
+  FPriorIndexChar := Result;
 end;
 
 function TdmChurchPicsWebBroker.ProduceLastName: string;
 begin
-  Result := 'Anderson';
+  Result := cdsChurchPicsLastName.AsString;
+end;
+
+function TdmChurchPicsWebBroker.ProducePictureFilename: string;
+
+  function RandPicNum: string;
+  var
+    s: string;
+  begin
+    s := IntToStr(Random(100) + 1);
+    Result := DupeString('0', 3 - Length(s)) + s;
+  end;
+
+begin
+  if FRandomKidPics then
+    Result := '.\pictures\KIDS' + RandPicNum + '.JPG'
+  else
+    Result := '.' + cdsChurchPicsPictureName.AsString;
 end;
 
 end.
