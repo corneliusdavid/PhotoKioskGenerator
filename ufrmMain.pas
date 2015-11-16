@@ -74,10 +74,12 @@ begin
   edtSpreadsheetFile.Text := ccRegistryLayoutSaver.RestoreStrValue('SpreadsheetFilename');
   edtHTMLTemplateFolder.Text := ccRegistryLayoutSaver.RestoreStrValue('WebTemplatFolder');
   edtHTMLOutputFolder.Text := ccRegistryLayoutSaver.RestoreStrValue('WebOutputFolder');
+  cbTestMode.Checked := ccRegistryLayoutSaver.RestoreBoolValue('RandPicNames');
 end;
 
 procedure TfrmPicSSConvert.FormDestroy(Sender: TObject);
 begin
+  ccRegistryLayoutSaver.SaveBoolValue('RandPicNames', cbTestMode.Checked);
   ccRegistryLayoutSaver.SaveStrValue('SpreadsheetFilename', edtSpreadsheetFile.Text);
   ccRegistryLayoutSaver.SaveStrValue('WebTemplatFolder', edtHTMLTemplateFolder.Text);
   ccRegistryLayoutSaver.SaveStrValue('WebOutputFolder', edtHTMLOutputFolder.Text);

@@ -27,6 +27,7 @@ type
     function ProduceLastName: string;
     function ProduceFirstNames: string;
     function ProduceChildNames: string;
+    function ProduceCombinedNames: string;
     function ProducePictureFilename: string;
   public
     procedure ProcessFile(const InputFilename, OutputFilename: string; const TestMode: Boolean);
@@ -74,6 +75,8 @@ begin
     ReplaceText := ProduceFirstNames
   else if SameText(TagString, 'ChildNames') then
     ReplaceText := ProduceChildNames
+  else if SameText(TagString, 'CombinedNames') then
+    ReplaceText := ProduceCombinedNames
   else if SameText(TagString, 'PictureFile') then
     ReplaceText := ProducePictureFilename;
 end;
@@ -97,6 +100,17 @@ end;
 function TdmChurchPicsWebBroker.ProduceChildNames: string;
 begin
   Result := cdsChurchPicsChildNames.AsString;
+end;
+
+function TdmChurchPicsWebBroker.ProduceCombinedNames: string;
+begin
+  Result := UpperCase(cdsChurchPicsLastName.AsString);
+
+  if Length(cdsChurchPicsFirstNames.AsString) > 0 then
+    Result := Result + ', ' + cdsChurchPicsFirstNames.AsString;
+
+  if Length(cdsChurchPicsChildNames.AsString) > 0 then
+    Result := Result + ', ' + cdsChurchPicsChildNames.AsString;
 end;
 
 function TdmChurchPicsWebBroker.ProduceFirstNames: string;

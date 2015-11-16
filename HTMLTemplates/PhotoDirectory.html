@@ -1,20 +1,40 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 
 <html>
   <head>
     <title>Beaverton SDA Church Photo Directory</title>
-	<meta charset="windows-1252">
-	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
-	<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/libs/html5shiv/ ?3.7.0/html5shiv.js"></script>
-		<script src="https://oss.maxcdn.com/libs/respond.js/ ?1.4.2/respond.min.js"></script>
-	<![endif]-->
+	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.fancybox.js?v=2.1.5"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript" src="js/jquery.fancybox-buttons.js?v=1.0.5"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+                padding: 10,
+                margin: 5,
+                openEffect : 'elastic',
+				openSpeed  : 250,
+				closeEffect : 'elastic',
+				closeSpeed  : 250,
+				closeClick : true,
+                helpers : {
+                    overlay : {
+                        closeClick : false
+                    },
+                    title : {
+                        type : 'inside', position : 'bottom'
+                    }
+                }
+			});
+        });
+    </script>
   </head>
 <body>
-	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.js"></script>
 
     <#PhotoList PhotoRowTemplate="PhotoRow.htm">

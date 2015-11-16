@@ -90,6 +90,9 @@
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <DCC_ExeOutput>V:\church\NameSheetConverter\</DCC_ExeOutput>
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
     </PropertyGroup>
@@ -109,6 +112,7 @@
         <DCCReference Include="V:\lib\CorneliusConcepts\uSearchRecList.pas"/>
         <None Include="HTMLTemplates\PhotoDirectory.html"/>
         <None Include="HTMLTemplates\PhotoRow.htm"/>
+        <None Include="Web\css\styles.css"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -148,6 +152,12 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="HTMLTemplates\PhotoRow.htm" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Web\css\styles.css" Configuration="Debug" Class="ProjectFile">
                     <Platform Name="Win32">
                         <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
