@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <title>Beaverton SDA Church Photo Directory</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/jquery.fancybox.js?v=2.1.5"></script>
+	<script type="text/javascript" src="js/jquery.fancybox-buttons.js?v=1.0.5"></script>
+	<script type="text/javascript" src="js/SmoothScroll.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("body").css("display", "none");
+			$("body").fadeIn(700);
+			$(".fancybox").fancybox({
+                padding: 10,
+                margin: 5,
+                openEffect : 'elastic',
+				openSpeed  : 250,
+				closeEffect : 'elastic',
+				closeSpeed  : 250,
+				closeClick : true,
+                helpers : {
+                    overlay : {
+                        closeClick : false
+                    },
+                    title : {
+                        type : 'inside', position : 'bottom'
+                    }
+                }
+			});
+        });
+
+    </script>
+  </head>
+<body>
+	<script src="js/bootstrap.js"></script>
+
+    <#PhotoList PhotoRowTemplate="FirstNamePhotoRow.htm">
+
+	<div class="navbar navbar-inverse navbar-fixed-bottom">
+		<div class="container p">
+			<#IndexButtons NavBarTemplate="NavBarButtons.htm">
+			<a class="btn btn-primary navbar-btn navbar-right" data-transition="flip" data-direction="reverse" href="LastNamesPhotoDirectory.html">Sort by LAST Names</a></div>
+		</div>
+	</div>
+
+  </body>
+</html>
