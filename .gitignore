@@ -61,3 +61,15 @@ __history/
 Web/FancyBox/
 Web/fonts/
 Web/pictures/
+Web/css/bootstrap*.css
+Web/css/fancybox*
+Web/css/jquery*
+Web/LastNamesPhotoDirectory.html
+Web/FirstNamesPhotoDirectory.html
+Web/js/bootstrap.js
+Web/js/bootstrap.min.js
+Web/js/jquery.fancybox.js
+Web/js/jquery.fancybox-buttons.js
+Web/js/npm.js
+Web/css/blank.gif
+Web/js/_jquery.js
