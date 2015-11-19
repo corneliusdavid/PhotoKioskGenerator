@@ -57,5 +57,7 @@ __history/
 *.stat
 *.groupproj
 *.xlsx
-Web/
 *.zip
+Web/FancyBox/
+Web/fonts/
+Web/pictures/

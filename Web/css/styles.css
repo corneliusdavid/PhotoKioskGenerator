@@ -1,0 +1,67 @@
+body {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background-color: black;
+	text-color: white;
+
+    /* disable text selection */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: moz-none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+img {
+	padding-top: 40px;
+	padding-bottom: 2px;
+	padding-left: 0px;
+	max-height: 300px;
+}
+
+.index-char {
+	text-align: center;
+	padding-top: 50px;
+	padding-right: 15px;
+	font-size: 24px;
+}
+
+.BoldName,
+.LastName {
+	font-size: 18px;
+	font-weight: bold;
+	color: yellow;
+}
+
+.FirstNames {
+	font-size: 12px;
+	color: white;
+}
+
+.ChildNames {
+	font-size: 10px;
+	color: white;
+}
+
+/*
+.navbar {
+	position: fixed;
+	z-index: 100;
+	left: 0px;
+	right: 0px;
+	bottom: -10px;
+	height: 30px;
+	background-color: silver;
+	opacity: 0.75;
+}
+
+a {
+	color: yellow;
+	font-family: sans-serif;
+	font-size: 14;
+	font-weight: bold;
+}
+*/
