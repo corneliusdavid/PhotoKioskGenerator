@@ -40,16 +40,15 @@
 <body>
 	<script src="js/bootstrap.js"></script>
 
-	<ul class="nav nav-tabs nav-justified navbar-inverse navbar-fixed-top">
-		<li role="navigation"><a href="LastNamesPhotoDirectory.html">Sort by LAST Names</a></li>
-		<li role="navigation" class="active"><a href="#">Sort by FIRST Names</a></li>
-	</ul>
-
     <#PhotoList PhotoRowTemplate="FirstNamePhotoRow.htm">
 
 	<nav class="navbar navbar-inverse navbar-fixed-bottom">
 		<div class="container">
-			<#IndexButtons NavBarTemplate="NavBarButtons.htm">
+			<div class="btn-group" role="group">
+				<#IndexButtons NavBarTemplate="NavBarButtons.htm">
+				<a class="btn btn-info navbar-btn" href="LastNamesPhotoDirectory.html">LAST Names <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span></a>
+				<a class="btn btn-default navbar-btn" disabled="disabled">FIRST Names <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span></a>
+			</div>
 		</div>
 	</nav>
 
