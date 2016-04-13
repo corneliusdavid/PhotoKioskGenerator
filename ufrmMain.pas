@@ -16,7 +16,6 @@ type
     aclMain: TActionList;
     imlMain: TImageList;
     actFindLastNamesSpreadsheet: TAction;
-    lbConvertLog: TListBox;
     ccRegistryLayoutSaver: TccRegistryLayoutSaver;
     dlgOpenSpreadsheet: TOpenDialog;
     actSetRootPicFolder: TBrowseForFolder;
@@ -36,6 +35,9 @@ type
     Label4: TLabel;
     SpeedButton1: TSpeedButton;
     actFindFirstNamesSpreadsheet: TAction;
+    Panel1: TPanel;
+    lbConvertLog: TListBox;
+    lbConvertStatus: TListBox;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure actFindLastNamesSpreadsheetExecute(Sender: TObject);
@@ -52,6 +54,7 @@ type
       FCurrTemplateFolder: string;
       FCurrOutputFolder: string;
     procedure AddStatus(const NewStatus: string);
+    procedure AddLog(const NewLog: string);
     procedure ParseSpreadsheetToDataSet(const AFilename: string; const SSFormat: SpreadSheetFormat);
     procedure GenerateWebPagesFromTemplates(const TemplateFolder, OutputFolder,
                                                   SpreadsheetFilename: string;
@@ -68,8 +71,7 @@ implementation
 {$R *.dfm}
 
 uses
-  System.IOUtils,
-  FlexCel.XlsAdapter, FlexCel.Core,
+  System.IOUtils, System.Win.ComObj,
   udmChurchPicsWebBroker,
   uSearchRecList;
 
@@ -129,21 +131,31 @@ begin
   actSetWebTemplateFolder.Folder := edtHTMLTemplateFolder.Text;
 end;
 
+procedure TfrmPicSSConvert.AddLog(const NewLog: string);
+begin
+  lbConvertLog.Items.Add(NewLog);
+  lbConvertLog.ItemIndex := lbConvertLog.Items.Count - 1;
+  lbConvertLog.Update;
+end;
+
 procedure TfrmPicSSConvert.AddStatus(const NewStatus: string);
 begin
-  lbConvertLog.Items.Add(NewStatus);
-  lbConvertLog.ItemIndex := lbConvertLog.Items.Count - 1;
+  lbConvertStatus.Items.Add(NewStatus);
+  lbConvertStatus.ItemIndex := lbConvertStatus.Items.Count - 1;
+  lbConvertStatus.Update;
 end;
 
 procedure TfrmPicSSConvert.ParseSpreadsheetToDataSet(const AFilename: string; const SSFormat: SpreadSheetFormat);
 var
-  Xls: TExcelFile;
-  r: Integer;
+  ExcelApp: OleVariant;
+  CurrRow: Integer;
   LastNameColumn: Integer;
+  done: Boolean;
+  name1, name2: string;
 begin
-  Xls := TXlsFile.Create;
-  xls.Open(AFileName);
-  AddStatus('Reading rows: ' + IntToStr(xls.RowCount));
+  ExcelApp := CreateOleObject('Excel.Application');
+
+  ExcelApp.Workbooks.Open(AFilename);
 
   dmChurchPicsWebBroker.cdsChurchPics.EmptyDataSet;
 
@@ -156,27 +168,35 @@ begin
       LastNameColumn := 1;
   end;
 
+  done := False;
+  Currrow := 1;
+  while not done do begin
+    name1 := ExcelApp.Cells[CurrRow, 1];
+    name2 := ExcelApp.Cells[CurrRow, 2];
 
-  for r := 1 to xls.RowCount do
-    if xls.ColCountInRow(r) > 1 then begin
+    if (Length(name1) = 0) or (Length(name2) = 0) then
+      done := True
+    else begin
       AddStatus(Format('  %s (%s)',
-                      [xls.GetStringFromCell(r, 1).ToString,
-                       xls.GetStringFromCell(r, 2).ToString]));
+                      [name1, name2]));
 
       dmChurchPicsWebBroker.cdsChurchPics.Append;
       if SSFormat = ssfFirstLastFirst then
-        dmChurchPicsWebBroker.cdsChurchPicsBoldName.AsString := xls.GetStringFromCell(r, 1).ToString;
-      dmChurchPicsWebBroker.cdsChurchPicsLastName.AsString := xls.GetStringFromCell(r, LastNameColumn).ToString;
-      dmChurchPicsWebBroker.cdsChurchPicsFirstNames.AsString := xls.GetStringFromCell(r, LastNameColumn + 1).ToString;
-      dmChurchPicsWebBroker.cdsChurchPicsChildNames.AsString := xls.GetStringFromCell(r, LastNameColumn + 2).ToString;
-      dmChurchPicsWebBroker.cdsChurchPicsPictureName.AsString := xls.GetStringFromCell(r, LastNameColumn + 1).ToString;
+        dmChurchPicsWebBroker.cdsChurchPicsBoldName.AsString := ExcelApp.Cells[Currrow, 1];
+      dmChurchPicsWebBroker.cdsChurchPicsLastName.AsString := ExcelApp.Cells[Currrow, LastNameColumn];
+      dmChurchPicsWebBroker.cdsChurchPicsFirstNames.AsString := ExcelApp.Cells[Currrow, LastNameColumn + 1];
+      dmChurchPicsWebBroker.cdsChurchPicsChildNames.AsString := ExcelApp.Cells[Currrow, LastNameColumn + 2];
+      dmChurchPicsWebBroker.cdsChurchPicsPictureName.AsString := ExcelApp.Cells[Currrow, LastNameColumn + 2];
       dmChurchPicsWebBroker.cdsChurchPics.Post;
     end;
+
+    Inc(CurrRow);
+  end;
 end;
 
 procedure TfrmPicSSConvert.WebTemplateFound(const Path: string; var Stop: Boolean);
 begin
-  AddStatus('Processing files in: ' + Path);
+  AddLog('Processing files in: ' + Path);
   Stop := False;
 end;
 
@@ -185,7 +205,7 @@ begin
   dmChurchPicsWebBroker.ProcessFile(TPath.Combine(FCurrTemplateFolder, FileInfo.Name),
                                     TPath.Combine(FCurrOutputFolder, FileInfo.Name),
                                     cbTestMode.Checked);
-  AddStatus('Generated ' + FileInfo.Name);
+  AddLog('Generated ' + FileInfo.Name);
 end;
 
 procedure TfrmPicSSConvert.actGenerateWebPagesExecute(Sender: TObject);
@@ -195,14 +215,19 @@ begin
   else if Length(edtHTMLOutputFolder.Text) = 0 then
     ShowMessage('Please specify the output folder for generated HTML pages.')
   else begin
-    GenerateWebPagesFromTemplates(edtHTMLTemplateFolder.Text,
-                                  edtHTMLOutputFolder.Text,
-                                  edtLastNamesSpreadsheetFile.Text,
-                                  ssfLastFirst);
-    GenerateWebPagesFromTemplates(edtHTMLTemplateFolder.Text,
-                                  edtHTMLOutputFolder.Text,
-                                  edtFirstNamesSpreadsheetFile.Text,
-                                  ssfFirstLastFirst);
+    Screen.Cursor := crHourGlass;
+    try
+      GenerateWebPagesFromTemplates(edtHTMLTemplateFolder.Text,
+                                    edtHTMLOutputFolder.Text,
+                                    edtLastNamesSpreadsheetFile.Text,
+                                    ssfLastFirst);
+      GenerateWebPagesFromTemplates(edtHTMLTemplateFolder.Text,
+                                    edtHTMLOutputFolder.Text,
+                                    edtFirstNamesSpreadsheetFile.Text,
+                                    ssfFirstLastFirst);
+    finally
+      Screen.Cursor := crDefault;
+    end;
   end;
 end;
 
@@ -210,12 +235,13 @@ procedure TfrmPicSSConvert.GenerateWebPagesFromTemplates(const TemplateFolder, O
                                                   SpreadsheetFilename: string;
                                                   const SSFormat: SpreadSheetFormat);
 begin
+  AddLog(Format('Reading spreadsheet: %s', [SpreadsheetFilename]));
   ParseSpreadsheetToDataSet(SpreadsheetFilename, SSFormat);
 
   if dmChurchPicsWebBroker.cdsChurchPics.RecordCount = 0 then
     ShowMessage('No data found in spreadsheet.')
   else begin
-    AddStatus(Format('Generating web pages for %d directory entries.', [dmChurchPicsWebBroker.cdsChurchPics.RecordCount]));
+    AddLog(Format('Generating web pages for %d directory entries.', [dmChurchPicsWebBroker.cdsChurchPics.RecordCount]));
 
     FCurrTemplateFolder := TemplateFolder;
     FCurrOutputFolder := OutputFolder;

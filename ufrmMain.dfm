@@ -3,7 +3,7 @@ object frmPicSSConvert: TfrmPicSSConvert
   Top = 0
   Caption = 'Picture Spreadsheet Converter'
   ClientHeight = 515
-  ClientWidth = 718
+  ClientWidth = 778
   Color = clBtnFace
   Constraints.MinHeight = 540
   Constraints.MinWidth = 700
@@ -124,15 +124,6 @@ object frmPicSSConvert: TfrmPicSSConvert
     EditLabel.Caption = '"&Last Names" Spreadsheet file:'
     TabOrder = 0
   end
-  object lbConvertLog: TListBox
-    Left = 440
-    Top = 0
-    Width = 278
-    Height = 515
-    Align = alRight
-    Anchors = [akLeft, akTop, akRight, akBottom]
-    TabOrder = 1
-  end
   object edtHTMLTemplateFolder: TLabeledEdit
     Left = 8
     Top = 297
@@ -141,7 +132,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     EditLabel.Width = 135
     EditLabel.Height = 16
     EditLabel.Caption = '&HTML Template Folder:'
-    TabOrder = 2
+    TabOrder = 1
   end
   object edtHTMLOutputFolder: TLabeledEdit
     Left = 8
@@ -151,7 +142,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     EditLabel.Width = 182
     EditLabel.Height = 16
     EditLabel.Caption = '&Generated HTML Output Folder:'
-    TabOrder = 3
+    TabOrder = 2
   end
   object BitBtn1: TBitBtn
     Left = 8
@@ -160,7 +151,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     Height = 35
     Action = actGenerateWebPages
     Caption = '&Process Spreadsheets'
-    TabOrder = 4
+    TabOrder = 3
   end
   object cbTestMode: TCheckBox
     Left = 200
@@ -174,7 +165,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     Font.Name = 'Arial Narrow'
     Font.Style = []
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 4
   end
   object edtFirstNamesSpreadsheetFile: TLabeledEdit
     Left = 8
@@ -184,7 +175,39 @@ object frmPicSSConvert: TfrmPicSSConvert
     EditLabel.Width = 180
     EditLabel.Height = 16
     EditLabel.Caption = '"&First Names" Spreadsheet file:'
+    TabOrder = 5
+  end
+  object Panel1: TPanel
+    Left = 448
+    Top = 0
+    Width = 330
+    Height = 515
+    Align = alRight
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    Caption = 'Panel1'
     TabOrder = 6
+    ExplicitTop = 8
+    ExplicitWidth = 270
+    object lbConvertLog: TListBox
+      Left = 1
+      Top = 375
+      Width = 328
+      Height = 139
+      Align = alBottom
+      TabOrder = 0
+      ExplicitWidth = 268
+    end
+    object lbConvertStatus: TListBox
+      Left = 1
+      Top = 1
+      Width = 328
+      Height = 374
+      Align = alClient
+      TabOrder = 1
+      ExplicitTop = 327
+      ExplicitWidth = 268
+      ExplicitHeight = 187
+    end
   end
   object aclMain: TActionList
     Images = imlMain
@@ -232,7 +255,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     Left = 456
     Top = 112
     Bitmap = {
-      494C010102000800700010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102000800900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000053B6E40037ABE4003BAE
       E60039ACE5003AADE6003AADE6003AADE6003AADE60039ACE5003CAEE60037AA
