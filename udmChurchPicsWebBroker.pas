@@ -185,7 +185,7 @@ function TdmChurchPicsWebBroker.ProducePictureFilename: string;
 
 begin
   if FRandomKidPics then
-    Result := '.\pictures\KIDS' + RandPicNum + '.JPG'
+    Result := './pictures/KIDS' + RandPicNum + '.JPG'
   else
     Result := '.' + cdsChurchPicsPictureName.AsString;
 end;
