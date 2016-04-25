@@ -187,7 +187,7 @@ begin
   if FRandomKidPics then
     Result := './pictures/KIDS' + RandPicNum + '.JPG'
   else
-    Result := '.' + cdsChurchPicsPictureName.AsString;
+    Result := '.' + ReplaceStr(cdsChurchPicsPictureName.AsString, '\', '/');
 end;
 
 end.
