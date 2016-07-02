@@ -19,19 +19,19 @@ img {
     max-width: 100%;
 }
 
+.person-box {
+    margin-top: 40px;
+    padding: 4px;
+    background-color: #161616;    
+}
+
 .person-img {
-	padding-top: 40px;
-	padding-bottom: 2px;
-	padding-left: 2px;
-    padding-right: 2px;
 	height: 300px;
     width: 300px;
 }
 
 .person-txt {
-    text-align: center;
     color: white;
-    background-color: black;
 }
 
 .index-char {

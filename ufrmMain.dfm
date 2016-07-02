@@ -186,8 +186,6 @@ object frmPicSSConvert: TfrmPicSSConvert
     Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Panel1'
     TabOrder = 6
-    ExplicitTop = 8
-    ExplicitWidth = 270
     object lbConvertLog: TListBox
       Left = 1
       Top = 375
@@ -195,7 +193,6 @@ object frmPicSSConvert: TfrmPicSSConvert
       Height = 139
       Align = alBottom
       TabOrder = 0
-      ExplicitWidth = 268
     end
     object lbConvertStatus: TListBox
       Left = 1
@@ -204,9 +201,6 @@ object frmPicSSConvert: TfrmPicSSConvert
       Height = 374
       Align = alClient
       TabOrder = 1
-      ExplicitTop = 327
-      ExplicitWidth = 268
-      ExplicitHeight = 187
     end
   end
   object aclMain: TActionList
@@ -255,7 +249,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     Left = 456
     Top = 112
     Bitmap = {
-      494C010102000800900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102000800940010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000053B6E40037ABE4003BAE
       E60039ACE5003AADE6003AADE6003AADE6003AADE60039ACE5003CAEE60037AA

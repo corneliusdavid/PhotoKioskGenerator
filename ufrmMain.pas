@@ -186,12 +186,14 @@ begin
       dmChurchPicsWebBroker.cdsChurchPicsLastName.AsString := ExcelApp.Cells[Currrow, LastNameColumn];
       dmChurchPicsWebBroker.cdsChurchPicsFirstNames.AsString := ExcelApp.Cells[Currrow, LastNameColumn + 1];
       dmChurchPicsWebBroker.cdsChurchPicsChildNames.AsString := ExcelApp.Cells[Currrow, LastNameColumn + 2];
-      dmChurchPicsWebBroker.cdsChurchPicsPictureName.AsString := ExcelApp.Cells[Currrow, LastNameColumn + 2];
+      dmChurchPicsWebBroker.cdsChurchPicsPictureName.AsString := ExcelApp.Cells[Currrow, 5];
       dmChurchPicsWebBroker.cdsChurchPics.Post;
     end;
 
     Inc(CurrRow);
   end;
+
+  ExcelApp := NULL;
 end;
 
 procedure TfrmPicSSConvert.WebTemplateFound(const Path: string; var Stop: Boolean);
