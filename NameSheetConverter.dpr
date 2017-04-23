@@ -1,4 +1,4 @@
-program ChurchPicSpreadsheetConverter;
+program NameSheetConverter;
 
 uses
   Vcl.Forms,
