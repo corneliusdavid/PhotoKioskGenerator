@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Devart (www.devart.com), Data-Generator document file -->
+<!-- Modifying this generated file will probably render it invalid -->
+<DataGenDocument xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="5.0">
+  <Settings>
+    <ProviderVersion>3.11.43.0</ProviderVersion>
+    <GeneratorVersion>6.1.485.0</GeneratorVersion>
+    <Provider>aa8afe9c-7d62-4564-b477-c12e62e0f440</Provider>
+    <ConnectionString>Data Source=GOLIATH\SQLEXPRESS;Integrated Security=True</ConnectionString>
+    <CategoryId>00000000-0000-0000-0000-000000000000</CategoryId>
+    <AllowNulls>false</AllowNulls>
+    <IncludeNullsPercent>10</IncludeNullsPercent>
+    <AllowEmptyString>false</AllowEmptyString>
+    <IncludeEmptyStringPercent>10</IncludeEmptyStringPercent>
+    <DatabaseName>NamesWithPhotos</DatabaseName>
+    <RowsToGenerate>300</RowsToGenerate>
+    <GenerateUniqueValues>false</GenerateUniqueValues>
+    <TruncateTables>true</TruncateTables>
+    <DistributionMode>Seed</DistributionMode>
+    <Seed>1</Seed>
+    <LastSeedValue>0</LastSeedValue>
+    <Language>US</Language>
+  </Settings>
+  <Tables>
+    <Table Name="dbo.NamesAndPhotos">
+      <Checked>true</Checked>
+      <Settings>
+        <RowsToGenerate>300</RowsToGenerate>
+        <Truncate>true</Truncate>
+      </Settings>
+      <Columns>
+        <Column Name="ID">
+          <Checked>true</Checked>
+          <DataType>int</DataType>
+          <GeneratorOptions xsi:type="IntegerGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>0</NullProportion>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Increment xsi:type="xsd:int">1</Increment>
+            <ValueDistributionMode>Sequential</ValueDistributionMode>
+            <SeedValue>1</SeedValue>
+            <MinValue>1</MinValue>
+            <MaxValue>2147483647</MaxValue>
+            <UseDefault>false</UseDefault>
+            <DefaultValue />
+          </GeneratorOptions>
+          <GeneratorType>SqlIntegerGenerator</GeneratorType>
+          <GeneratorName>ID (sequential)</GeneratorName>
+          <GeneratorDescription>1, 2, 3, 4, ..., 9, 10, 11, 12, ...</GeneratorDescription>
+          <GeneratorCategory>Business</GeneratorCategory>
+          <Length>4</Length>
+          <Precision>10</Precision>
+        </Column>
+        <Column Name="LastName">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="TextFileGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>1</SeedValue>
+            <IsLoop>true</IsLoop>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <FileName>LastNames.txt</FileName>
+            <TrimLeft>false</TrimLeft>
+            <TrimRight>false</TrimRight>
+            <CodePage>-1</CodePage>
+          </GeneratorOptions>
+          <GeneratorType>SqlTextFileGenerator</GeneratorType>
+          <GeneratorName>Last Name</GeneratorName>
+          <GeneratorDescription>Harter, Nicholson, Eller, Kozlowski, Bennett, Norwood, Olivarez, ...</GeneratorDescription>
+          <GeneratorCategory>Personal</GeneratorCategory>
+          <Length>50</Length>
+        </Column>
+        <Column Name="Parent1Name">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="TextFileGeneratorOptions">
+            <AllowEmptyStrings>true</AllowEmptyStrings>
+            <EmptyStringProportion>25</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>25</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>1</SeedValue>
+            <IsLoop>true</IsLoop>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <FileName>FirstNamesMale.txt</FileName>
+            <TrimLeft>false</TrimLeft>
+            <TrimRight>false</TrimRight>
+            <CodePage>-1</CodePage>
+          </GeneratorOptions>
+          <GeneratorType>SqlTextFileGenerator</GeneratorType>
+          <GeneratorName>First Name (male)</GeneratorName>
+          <GeneratorDescription>Zane, Ernest, Allan, Denis, Hans, ...</GeneratorDescription>
+          <GeneratorCategory>Personal</GeneratorCategory>
+          <Length>50</Length>
+        </Column>
+        <Column Name="Parent2Name">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="TextFileGeneratorOptions">
+            <AllowEmptyStrings>true</AllowEmptyStrings>
+            <EmptyStringProportion>3</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>25</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>2</SeedValue>
+            <IsLoop>false</IsLoop>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <FileName>FirstNamesFemale.txt</FileName>
+            <TrimLeft>false</TrimLeft>
+            <TrimRight>false</TrimRight>
+            <CodePage>-1</CodePage>
+          </GeneratorOptions>
+          <GeneratorType>SqlTextFileGenerator</GeneratorType>
+          <GeneratorName>First Name (female)</GeneratorName>
+          <GeneratorDescription>Adelina, Marilyn, Rosa, Xenia, Elisa, ...</GeneratorDescription>
+          <GeneratorCategory>Personal</GeneratorCategory>
+          <Length>50</Length>
+        </Column>
+        <Column Name="ChildNames">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="SqlRegularExpressionGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>true</AllowNulls>
+            <NullProportion>40</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>3</SeedValue>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <Expression>($"FirstNamesMale.txt")|($"FirstNamesFemale.txt")\s\&amp;\s($"FirstNamesMale.txt")|($"FirstNamesFemale.txt")</Expression>
+          </GeneratorOptions>
+          <GeneratorType>SqlRegularExpressionGenerator</GeneratorType>
+          <GeneratorName>First Name (any gender)</GeneratorName>
+          <GeneratorDescription>Nickolas, Agnes, Sabrina, Albert, Rozanne, Kerri, Roberta, ...</GeneratorDescription>
+          <GeneratorCategory>Personal</GeneratorCategory>
+          <Length>100</Length>
+        </Column>
+        <Column Name="PictureFilename">
+          <Checked>true</Checked>
+          <DataType>varchar</DataType>
+          <GeneratorOptions xsi:type="TextFileGeneratorOptions">
+            <AllowEmptyStrings>false</AllowEmptyStrings>
+            <EmptyStringProportion>10</EmptyStringProportion>
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>1</SeedValue>
+            <IsLoop>true</IsLoop>
+            <Unique>true</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+            <FileName>E:\Virtual Machines\shared\ChurchPhotoKiosk\PicFilenames.txt</FileName>
+            <TrimLeft>false</TrimLeft>
+            <TrimRight>false</TrimRight>
+            <CodePage>1252</CodePage>
+          </GeneratorOptions>
+          <GeneratorType>SqlTextFileGenerator</GeneratorType>
+          <GeneratorName>Text File</GeneratorName>
+          <GeneratorDescription>loads values from specified text file</GeneratorDescription>
+          <Length>200</Length>
+        </Column>
+        <Column Name="HasPicture">
+          <Checked>true</Checked>
+          <DataType>bit</DataType>
+          <GeneratorOptions xsi:type="BitGeneratorOptions">
+            <AllowNulls>false</AllowNulls>
+            <NullProportion>10</NullProportion>
+            <UseDefault>false</UseDefault>
+            <ValueDistributionMode>Seed</ValueDistributionMode>
+            <SeedValue>1</SeedValue>
+            <TrueProbability>0.7</TrueProbability>
+            <Unique>false</Unique>
+            <IsAlwaysUnique>false</IsAlwaysUnique>
+          </GeneratorOptions>
+          <GeneratorType>SqlBitGenerator</GeneratorType>
+          <GeneratorName>bit</GeneratorName>
+          <GeneratorDescription>fill with true or false values</GeneratorDescription>
+          <Length>1</Length>
+          <Precision>1</Precision>
+        </Column>
+      </Columns>
+    </Table>
+  </Tables>
+  <SynchronizationOptions xsi:type="SqlDataSynchronizationOptions">
+    <SynchronizationFileName>E:\Virtual Machines\shared\ChurchPhotoKiosk\DataGeneration_20170427-2110.sql</SynchronizationFileName>
+    <BackupPathName>c:\Program Files\Microsoft SQL Server\MSSQL11.SQLEXPRESS\MSSQL\Backup</BackupPathName>
+  </SynchronizationOptions>
+</DataGenDocument>
