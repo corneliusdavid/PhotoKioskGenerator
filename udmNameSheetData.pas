@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Classes, Data.DB, Data.Win.ADODB;
 
 type
-  TdmNameSheetDAta = class(TDataModule)
+  TdmNameSheetData = class(TDataModule)
     ADOConnection: TADOConnection;
   private
     { Private declarations }
@@ -15,7 +15,7 @@ type
   end;
 
 var
-  dmNameSheetDAta: TdmNameSheetDAta;
+  dmNameSheetData: TdmNameSheetData;
 
 implementation
 
