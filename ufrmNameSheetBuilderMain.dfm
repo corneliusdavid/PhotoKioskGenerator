@@ -26,7 +26,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
     Left = 0
     Top = 0
     Width = 499
-    Height = 57
+    Height = 48
     Align = alTop
     Caption = 
       'This program takes data from SQL Server and creates two spreadsh' +
@@ -40,6 +40,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
     Font.Style = []
     ParentFont = False
     WordWrap = True
+    ExplicitWidth = 487
   end
   object grpDatabase: TGroupBox
     Left = 34
@@ -49,7 +50,6 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
     Anchors = [akTop]
     Caption = 'Database'
     TabOrder = 0
-    ExplicitLeft = 32
     object edtDBServerName: TLabeledEdit
       Left = 96
       Top = 40
@@ -93,7 +93,6 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
     Anchors = [akTop]
     Caption = 'Spreadsheets (configured in Picture Spreadsheet Converter)'
     TabOrder = 1
-    ExplicitLeft = 32
     object edtLastNamesSpreadsheetFile: TLabeledEdit
       Left = 14
       Top = 56
@@ -115,7 +114,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
       TabOrder = 1
     end
   end
-  object BitBtn1: TBitBtn
+  object btnGenSpreadsheets: TBitBtn
     Left = 37
     Top = 399
     Width = 177
@@ -149,6 +148,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
       E1FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
       FFFFA6CAF07DD2F57AC7F275C8F36AA9E392BEEAFFFFFFFFFFFF}
     TabOrder = 2
+    OnClick = btnGenSpreadsheetsClick
   end
   object ccRegistryLayoutSaver: TccRegistryLayoutSaver
     Left = 424
