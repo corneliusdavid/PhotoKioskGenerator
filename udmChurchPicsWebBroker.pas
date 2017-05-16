@@ -28,7 +28,6 @@ type
     FCurrIndexChar: string;
     FPriorIndexChar: string;
     FIndexCharList: TStringList;
-    FRandomKidPics: Boolean;
     function ProduceIndexChar: string;
     function ProduceFirstName: string;
     function ProduceLastName: string;
@@ -37,7 +36,7 @@ type
     function ProduceCombinedNames: string;
     function ProducePictureFilename: string;
   public
-    procedure ProcessFile(const InputFilename, OutputFilename: string; const TestMode: Boolean);
+    procedure ProcessFile(const InputFilename, OutputFilename: string);
   end;
 
 var
@@ -106,12 +105,11 @@ begin
     ReplaceText := ProducePictureFilename;
 end;
 
-procedure TdmChurchPicsWebBroker.ProcessFile(const InputFilename, OutputFilename: string; const TestMode: Boolean);
+procedure TdmChurchPicsWebBroker.ProcessFile(const InputFilename, OutputFilename: string);
 var
   OutputWebPage: TextFile;
 begin
   FTemplateFolder := ExtractFilePath(InputFilename);
-  FRandomKidPics := TestMode;
   FPriorIndexChar := EmptyStr;
   FIndexCharList := TStringList.Create;
   try
@@ -184,10 +182,12 @@ function TdmChurchPicsWebBroker.ProducePictureFilename: string;
   end;
 
 begin
-  if FRandomKidPics then
-    Result := './pictures/KIDS' + RandPicNum + '.JPG'
+  Result := ReplaceStr(cdsChurchPicsPictureName.AsString, '\', '/');
+
+  if LeftStr(Result, 1) <> '/' then
+    Result := './' + Result
   else
-    Result := '.' + ReplaceStr(cdsChurchPicsPictureName.AsString, '\', '/');
+    Result := '.' + Result;
 end;
 
 end.

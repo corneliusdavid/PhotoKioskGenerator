@@ -30,7 +30,6 @@ type
     Label2: TLabel;
     Label3: TLabel;
     Label5: TLabel;
-    cbTestMode: TCheckBox;
     edtFirstNamesSpreadsheetFile: TLabeledEdit;
     Label4: TLabel;
     SpeedButton1: TSpeedButton;
@@ -81,7 +80,6 @@ begin
   edtFirstNamesSpreadsheetFile.Text := ccRegistryLayoutSaver.RestoreStrValue('FirstNamesSpreadsheetFilename');
   edtHTMLTemplateFolder.Text := ccRegistryLayoutSaver.RestoreStrValue('WebTemplatFolder');
   edtHTMLOutputFolder.Text := ccRegistryLayoutSaver.RestoreStrValue('WebOutputFolder');
-  cbTestMode.Checked := ccRegistryLayoutSaver.RestoreBoolValue('RandPicNames');
 end;
 
 procedure TfrmPicSSConvert.FormDestroy(Sender: TObject);
@@ -90,7 +88,6 @@ begin
   ccRegistryLayoutSaver.SaveStrValue('FirstNamesSpreadsheetFilename', edtFirstNamesSpreadsheetFile.Text);
   ccRegistryLayoutSaver.SaveStrValue('WebTemplatFolder', edtHTMLTemplateFolder.Text);
   ccRegistryLayoutSaver.SaveStrValue('WebOutputFolder', edtHTMLOutputFolder.Text);
-  ccRegistryLayoutSaver.SaveBoolValue('RandPicNames', cbTestMode.Checked);
 end;
 
 procedure TfrmPicSSConvert.actFindFirstNamesSpreadsheetExecute(Sender: TObject);
@@ -193,6 +190,7 @@ begin
     Inc(CurrRow);
   end;
 
+  ExcelApp.Workbooks.Close;
   ExcelApp := NULL;
 end;
 
@@ -205,8 +203,7 @@ end;
 procedure TfrmPicSSConvert.WebTemplateProcess(FileInfo: TSearchRec);
 begin
   dmChurchPicsWebBroker.ProcessFile(TPath.Combine(FCurrTemplateFolder, FileInfo.Name),
-                                    TPath.Combine(FCurrOutputFolder, FileInfo.Name),
-                                    cbTestMode.Checked);
+                                    TPath.Combine(FCurrOutputFolder, FileInfo.Name));
   AddLog('Generated ' + FileInfo.Name);
 end;
 

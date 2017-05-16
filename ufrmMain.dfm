@@ -153,20 +153,6 @@ object frmPicSSConvert: TfrmPicSSConvert
     Caption = '&Process Spreadsheets'
     TabOrder = 3
   end
-  object cbTestMode: TCheckBox
-    Left = 200
-    Top = 467
-    Width = 234
-    Height = 17
-    Caption = 'Random picture file names (KIDS###.JPG)'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Arial Narrow'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 4
-  end
   object edtFirstNamesSpreadsheetFile: TLabeledEdit
     Left = 8
     Top = 184
@@ -175,7 +161,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     EditLabel.Width = 180
     EditLabel.Height = 16
     EditLabel.Caption = '"&First Names" Spreadsheet file:'
-    TabOrder = 5
+    TabOrder = 4
   end
   object Panel1: TPanel
     Left = 448
@@ -185,7 +171,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     Align = alRight
     Anchors = [akLeft, akTop, akRight, akBottom]
     Caption = 'Panel1'
-    TabOrder = 6
+    TabOrder = 5
     object lbConvertLog: TListBox
       Left = 1
       Top = 375
@@ -246,7 +232,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     Left = 456
     Top = 112
     Bitmap = {
-      494C010102000800980010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102000500040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000053B6E40037ABE4003BAE
       E60039ACE5003AADE6003AADE6003AADE6003AADE60039ACE5003CAEE60037AA
