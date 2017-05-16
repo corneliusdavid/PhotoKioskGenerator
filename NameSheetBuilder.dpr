@@ -4,9 +4,9 @@ uses
   Vcl.Forms,
   ufrmNameSheetBuilderMain in 'ufrmNameSheetBuilderMain.pas' {frmNameSheetBuilder},
   udmNameSheetData in 'udmNameSheetData.pas' {dmNameSheetData: TDataModule},
-  uPhotoData in 'uPhotoData.pas',
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  uNameSheetBuilder in 'uNameSheetBuilder.pas';
 
 {$R *.res}
 
