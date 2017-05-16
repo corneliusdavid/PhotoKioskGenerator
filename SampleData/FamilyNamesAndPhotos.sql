@@ -1,7 +1,7 @@
 USE [NamesWithPhotos]
 GO
 
-/****** Object:  Table [dbo].[NamesAndPhotos]    Script Date: 4/27/2017 8:52:05 PM ******/
+/****** Object:  Table [dbo].[NamesAndPhotos]    Script Date: 5/13/2017 8:56:08 AM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -13,10 +13,12 @@ CREATE TABLE [dbo].[NamesAndPhotos](
 	[LastName] [varchar](50) NULL,
 	[Parent1Name] [varchar](50) NULL,
 	[Parent2Name] [varchar](50) NULL,
-	[ChildNames] [varchar](100) NULL,
-	[PictureFilename] [varchar](200) NULL,
-	[HasPicture] [bit] NOT NULL
-) ON [PRIMARY]
+	[Child1Name] [varchar](50) NULL,
+	[Child2Name] [varchar](50) NULL,
+	[Child3Name] [varchar](50) NULL,
+    [PictureFilename] [varchar](200) NULL
+	)
+	
 
 GO
 
