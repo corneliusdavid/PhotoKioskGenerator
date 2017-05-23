@@ -144,54 +144,59 @@ end;
 
 procedure TfrmPicSSConvert.ParseSpreadsheetToDataSet(const AFilename: string; const SSFormat: SpreadSheetFormat);
 var
-  ExcelApp: OleVariant;
+  ExcelApp, Books: OleVariant;
   CurrRow: Integer;
   LastNameColumn: Integer;
   done: Boolean;
   name1, name2: string;
 begin
   ExcelApp := CreateOleObject('Excel.Application');
+  Books := ExcelApp.Workbooks;
+  try
+    Books.Open(AFilename);
 
-  ExcelApp.Workbooks.Open(AFilename);
+    dmChurchPicsWebBroker.cdsChurchPics.EmptyDataSet;
 
-  dmChurchPicsWebBroker.cdsChurchPics.EmptyDataSet;
-
-  case SSFormat of
-    ssfLastFirst:
-      LastNameColumn := 1;
-    ssfFirstLastFirst:
-      LastNameColumn := 2;
-    else
-      LastNameColumn := 1;
-  end;
-
-  done := False;
-  Currrow := 1;
-  while not done do begin
-    name1 := ExcelApp.Cells[CurrRow, 1];
-    name2 := ExcelApp.Cells[CurrRow, 2];
-
-    if (Length(name1) = 0) or (Length(name2) = 0) then
-      done := True
-    else begin
-      AddStatus(Format('  %s (%s)',
-                      [name1, name2]));
-
-      dmChurchPicsWebBroker.cdsChurchPics.Append;
-      if SSFormat = ssfFirstLastFirst then
-        dmChurchPicsWebBroker.cdsChurchPicsBoldName.AsString := ExcelApp.Cells[Currrow, 1];
-      dmChurchPicsWebBroker.cdsChurchPicsLastName.AsString := ExcelApp.Cells[Currrow, LastNameColumn];
-      dmChurchPicsWebBroker.cdsChurchPicsFirstNames.AsString := ExcelApp.Cells[Currrow, LastNameColumn + 1];
-      dmChurchPicsWebBroker.cdsChurchPicsChildNames.AsString := ExcelApp.Cells[Currrow, LastNameColumn + 2];
-      dmChurchPicsWebBroker.cdsChurchPicsPictureName.AsString := ExcelApp.Cells[Currrow, 5];
-      dmChurchPicsWebBroker.cdsChurchPics.Post;
+    case SSFormat of
+      ssfLastFirst:
+        LastNameColumn := 1;
+      ssfFirstLastFirst:
+        LastNameColumn := 2;
+      else
+        LastNameColumn := 1;
     end;
 
-    Inc(CurrRow);
-  end;
+    done := False;
+    Currrow := 1;
+    while not done do begin
+      name1 := ExcelApp.Cells[CurrRow, 1];
+      name2 := ExcelApp.Cells[CurrRow, 2];
 
-  ExcelApp.Workbooks.Close;
-  ExcelApp := NULL;
+      if (Length(name1) = 0) or (Length(name2) = 0) then
+        done := True
+      else begin
+        AddStatus(Format('  %s (%s)',
+                        [name1, name2]));
+
+        dmChurchPicsWebBroker.cdsChurchPics.Append;
+        if SSFormat = ssfFirstLastFirst then
+          dmChurchPicsWebBroker.cdsChurchPicsBoldName.AsString := ExcelApp.Cells[Currrow, 1];
+        dmChurchPicsWebBroker.cdsChurchPicsLastName.AsString := ExcelApp.Cells[Currrow, LastNameColumn];
+        dmChurchPicsWebBroker.cdsChurchPicsFirstNames.AsString := ExcelApp.Cells[Currrow, LastNameColumn + 1];
+        dmChurchPicsWebBroker.cdsChurchPicsChildNames.AsString := ExcelApp.Cells[Currrow, LastNameColumn + 2];
+        dmChurchPicsWebBroker.cdsChurchPicsPictureName.AsString := ExcelApp.Cells[Currrow, 5];
+        dmChurchPicsWebBroker.cdsChurchPics.Post;
+      end;
+
+      Inc(CurrRow);
+    end;
+
+    ExcelApp.Workbooks.Close;
+    ExcelApp.Quit;
+  finally
+    Books := null;
+    ExcelApp := null;
+  end;
 end;
 
 procedure TfrmPicSSConvert.WebTemplateFound(const Path: string; var Stop: Boolean);
