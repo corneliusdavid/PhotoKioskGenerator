@@ -2,13 +2,31 @@ unit uNameSheetBuilder;
 
 interface
 
-procedure GenerateSpreadsheets(const DBServer, DBUser, DBPassword, LastNamesSpreadsheet, FirstNamesSpreadsheet: string);
+type
+  ProgressUpdateProc = procedure (const CurrPos, MaxPos: Integer);
+
+procedure ConnectToDatabase(const DBServer, DBUser, DBPassword: string);
+procedure DisconnectFromDatabase;
+
+procedure CreateFirstNamesSpreadsheet(const SpreadsheetFilename: string; UpdateProgressBar: ProgressUpdateProc);
+procedure CreateLastNamesSpreadsheet(const SpreadsheetFilename: string; UpdateProgressBar: ProgressUpdateProc);
+
 
 implementation
 
 uses
   System.Variants, System.Win.ComObj, System.SysUtils,
   udmNameSheetData;
+
+procedure ConnectToDatabase(const DBServer, DBUser, DBPassword: string);
+begin
+  dmNameSheetData.Connect(DBServer, DBUser, DBPassword);
+end;
+
+procedure DisconnectFromDatabase;
+begin
+  dmNameSheetData.ADOConnection.Close;
+end;
 
 procedure ClearExistingSpreadsheet(var ExcelApp: OleVariant);
 var
@@ -32,73 +50,83 @@ begin
   end;
 end;
 
-procedure CreateFirstNamesSpreadsheet(const SpreadsheetFilename: string);
+procedure CreateFirstNamesSpreadsheet(const SpreadsheetFilename: string; UpdateProgressBar: ProgressUpdateProc);
 var
-  ExcelApp: OleVariant;
-  row, col: Integer;
+  ExcelApp, Books, ActiveBk: OleVariant;
+  row, maxrow: Integer;
   done: Boolean;
 begin
   ExcelApp := CreateOleObject('Excel.Application');
-  ExcelApp.Workbooks.Open(SpreadsheetFilename);
+  Books := ExcelApp.Workbooks;
+  try
+    Books.Open(SpreadsheetFilename);
 
-  ClearExistingSpreadsheet(ExcelApp);
+    ClearExistingSpreadsheet(ExcelApp);
 
-  dmNameSheetData.PrepareFirstNameList;
+    dmNameSheetData.PrepareFirstNameList;
+    maxrow := dmNameSheetData.qryFirstNames.RecordCount;
 
-  row := 1;
-  done := False;
-  repeat
-    done := dmNameSheetData.GetNextRow;
+    row := 1;
+    repeat
+      done := dmNameSheetData.GetNextRow;
 
-    ExcelApp.Cells[row, 1] := dmNameSheetData.PhotoEntry.FirstName;
-    ExcelApp.Cells[row, 2] := dmNameSheetData.PhotoEntry.LastName;
-    ExcelApp.Cells[row, 3] := dmNameSheetData.PhotoEntry.ParentNames;
-    ExcelApp.Cells[row, 4] := dmNameSheetData.PhotoEntry.ChildNames;
-    ExcelApp.Cells[row, 5] := dmNameSheetData.PhotoEntry.PhotoFilename;
+      ExcelApp.Cells[row, 1] := dmNameSheetData.PhotoEntry.FirstName;
+      ExcelApp.Cells[row, 2] := dmNameSheetData.PhotoEntry.LastName;
+      ExcelApp.Cells[row, 3] := dmNameSheetData.PhotoEntry.ParentNames;
+      ExcelApp.Cells[row, 4] := dmNameSheetData.PhotoEntry.ChildNames;
+      ExcelApp.Cells[row, 5] := dmNameSheetData.PhotoEntry.PhotoFilename;
 
-    Inc(row);
-  until done;
+      UpdateProgressBar(row, maxrow);
 
-  ExcelApp.ActiveWorkbook.Save;
-  ExcelApp.Workbooks.Close;
-  ExcelApp := null;
+      Inc(row);
+    until done;
+
+    ExcelApp.ActiveWorkbook.Save;
+    ExcelApp.Workbooks.Close;
+    ExcelApp.Quit;
+  finally
+    Books := null;
+    ExcelApp := null;
+  end;
 end;
 
-procedure CreateLastNamesSpreadsheet(const SpreadsheetFilename: string);
+procedure CreateLastNamesSpreadsheet(const SpreadsheetFilename: string; UpdateProgressBar: ProgressUpdateProc);
 var
-  ExcelApp: OleVariant;
-  row: Integer;
+  ExcelApp, Books: OleVariant;
+  row, maxrow: Integer;
   done: Boolean;
 begin
   ExcelApp := CreateOleObject('Excel.Application');
-  ExcelApp.Workbooks.Open(SpreadsheetFilename);
+  try
+    Books := ExcelApp.Workbooks;
+    Books.Open(SpreadsheetFilename);
 
-  ClearExistingSpreadsheet(ExcelApp);
-  dmNameSheetData.PrepareLastNameList;
+    ClearExistingSpreadsheet(ExcelApp);
 
-  row := 1;
-  done := False;
-  repeat
-    done := dmNameSheetData.GetNextRow;
+    dmNameSheetData.PrepareLastNameList;
+    maxrow := dmNameSheetData.qryLastNames.RecordCount;
 
-    ExcelApp.Cells[row, 1] := dmNameSheetData.PhotoEntry.LastName;
-    ExcelApp.Cells[row, 2] := dmNameSheetData.PhotoEntry.ParentNames;
-    ExcelApp.Cells[row, 3] := dmNameSheetData.PhotoEntry.ChildNames;
-    ExcelApp.Cells[row, 5] := dmNameSheetData.PhotoEntry.PhotoFilename;
+    row := 1;
+    repeat
+      done := dmNameSheetData.GetNextRow;
 
-    Inc(row);
-  until done;
+      ExcelApp.Cells[row, 1] := dmNameSheetData.PhotoEntry.LastName;
+      ExcelApp.Cells[row, 2] := dmNameSheetData.PhotoEntry.ParentNames;
+      ExcelApp.Cells[row, 3] := dmNameSheetData.PhotoEntry.ChildNames;
+      ExcelApp.Cells[row, 5] := dmNameSheetData.PhotoEntry.PhotoFilename;
 
-  ExcelApp.ActiveWorkbook.Save;
-  ExcelApp.Workbooks.Close;
-  ExcelApp := null;
-end;
+      UpdateProgressBar(row, maxrow);
 
-procedure GenerateSpreadsheets(const DBServer, DBUser, DBPassword, LastNamesSpreadsheet, FirstNamesSpreadsheet: string);
-begin
-  dmNameSheetData.Connect(DBServer, DBUser, DBPassword);
-  CreateLastNamesSpreadsheet(LastNamesSpreadsheet);
-  CreateFirstNamesSpreadsheet(FirstNamesSpreadsheet);
+      Inc(row);
+    until done;
+
+    ExcelApp.ActiveWorkbook.Save;
+    ExcelApp.Workbooks.Close;
+    ExcelApp.Quit;
+  finally
+    Books := null;
+    ExcelApp := null;
+  end;
 end;
 
 end.

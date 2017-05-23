@@ -5,7 +5,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
   BorderStyle = bsSingle
   BorderWidth = 10
   Caption = 'Name Sheet Builder'
-  ClientHeight = 471
+  ClientHeight = 490
   ClientWidth = 499
   Color = clBtnFace
   Constraints.MinWidth = 480
@@ -19,7 +19,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
   OnClose = FormClose
   DesignSize = (
     499
-    471)
+    490)
   PixelsPerInch = 96
   TextHeight = 16
   object Label1: TLabel
@@ -41,6 +41,12 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
     ParentFont = False
     WordWrap = True
     ExplicitWidth = 487
+  end
+  object lblGenStatus: TLabel
+    Left = 230
+    Top = 431
+    Width = 4
+    Height = 16
   end
   object grpDatabase: TGroupBox
     Left = 34
@@ -89,7 +95,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
     Left = 34
     Top = 229
     Width = 417
-    Height = 164
+    Height = 188
     Anchors = [akTop]
     Caption = 'Spreadsheets (configured in Picture Spreadsheet Converter)'
     Color = clBtnFace
@@ -130,7 +136,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
     end
     object edtFirstNamesSpreadsheetFile: TLabeledEdit
       Left = 14
-      Top = 116
+      Top = 132
       Width = 387
       Height = 22
       Ctl3D = False
@@ -155,10 +161,26 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
       ParentFont = False
       TabOrder = 1
     end
+    object pbLastNames: TProgressBar
+      Left = 14
+      Top = 78
+      Width = 387
+      Height = 21
+      TabOrder = 2
+      Visible = False
+    end
+    object pbFirstNames: TProgressBar
+      Left = 14
+      Top = 154
+      Width = 387
+      Height = 21
+      TabOrder = 3
+      Visible = False
+    end
   end
   object btnGenSpreadsheets: TBitBtn
-    Left = 37
-    Top = 399
+    Left = 34
+    Top = 423
     Width = 177
     Height = 35
     Caption = '&Generate Spreadsheets'

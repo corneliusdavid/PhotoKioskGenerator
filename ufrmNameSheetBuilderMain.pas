@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, LayoutSaver, Vcl.Buttons;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, LayoutSaver, Vcl.Buttons,
+  Vcl.ComCtrls;
 
 type
   TfrmNameSheetBuilder = class(TForm)
@@ -19,6 +20,9 @@ type
     edtLastNamesSpreadsheetFile: TLabeledEdit;
     edtFirstNamesSpreadsheetFile: TLabeledEdit;
     btnGenSpreadsheets: TBitBtn;
+    pbLastNames: TProgressBar;
+    pbFirstNames: TProgressBar;
+    lblGenStatus: TLabel;
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnGenSpreadsheetsClick(Sender: TObject);
@@ -39,13 +43,55 @@ implementation
 uses
   uNameSheetBuilder;
 
+var
+  TotalRecsGenerated: Integer;
+
+procedure UpdateTotalRecordsStatus;
+begin
+  frmNameSheetBuilder.lblGenStatus.Caption := 'Records generated: ' + IntToStr(TotalRecsGenerated);
+  frmNameSheetBuilder.lblGenStatus.Update;
+end;
+
+procedure IncrementTotalRecordsGenerated;
+begin
+  Inc(TotalRecsGenerated);
+  if TotalRecsGenerated mod 10 = 0 then
+    UpdateTotalRecordsStatus;
+end;
+
+procedure UpdateLastNameProgressBar(const CurrPos, MaxPos: Integer);
+begin
+  frmNameSheetBuilder.pbLastNames.Max := MaxPos;
+  frmNameSheetBuilder.pbLastNames.Position := CurrPos;
+  frmNameSheetBuilder.pbLastNames.Update;
+  IncrementTotalRecordsGenerated;
+end;
+
+procedure UpdateFirstNameProgressBar(const CurrPos, MaxPos: Integer);
+begin
+  frmNameSheetBuilder.pbFirstNames.Max := MaxPos;
+  frmNameSheetBuilder.pbFirstNames.Position := CurrPos;
+  frmNameSheetBuilder.pbFirstNames.Update;
+  IncrementTotalRecordsGenerated;
+end;
+
 procedure TfrmNameSheetBuilder.btnGenSpreadsheetsClick(Sender: TObject);
 begin
   Screen.Cursor := crHourGlass;
+  TotalRecsGenerated := 0;
+  pbLastNames.Position := 0;
+  pbFirstNames.Position := 0;
+  pbLastNames.Visible := True;
+  pbFirstNames.Visible := True;
   try
-    GenerateSpreadsheets(edtDBServerName.Text, edtDBUsername.Text, edtDBPassword.Text,
-                         edtLastNamesSpreadsheetFile.Text, edtFirstNamesSpreadsheetFile.Text);
+    ConnectToDatabase(edtDBServerName.Text, edtDBUsername.Text, edtDBPassword.Text);
+    CreateLastNamesSpreadsheet(edtLastNamesSpreadsheetFile.Text, UpdateLastNameProgressBar);
+    CreateFirstNamesSpreadsheet(edtFirstNamesSpreadsheetFile.Text, UpdateFirstNameProgressBar);
+    UpdateTotalRecordsStatus;
   finally
+    DisconnectFromDatabase;
+    pbLastNames.Visible := False;
+    pbFirstNames.Visible := False;
     Screen.Cursor := crDefault;
   end;
 end;
