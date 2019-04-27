@@ -2,11 +2,9 @@
 
 This project was built to generate a set of static web pages of photos for people to browse in a kiosk such as the lobby of an office or church.  It has two parts, web templates and a Windows program to generate web pages using data in a set of spreadsheets matched with the web templates. Whenever updates are made to the spreadsheets (e.g. new people are added), the program needs to be run to re-generate the web pages and then the web pages need to be moved or copied out to where the kiosk or web server resides.
 
-The reason it was designed to generate static files instead of a dynamic site pulling names and photos out of a database was partly because the original data came from a spreadsheet and partly because it was unknown whether the kiosk computer would have any access to the interet. Also, I didn't yet know what the end result would look like or how I was going to build it, so I took what I knew and this project happened.
+The reason it was designed to generate static files instead of a dynamic site pulling names and photos out of a database was partly because the original data came from a spreadsheet and partly because it was unknown whether the kiosk computer would have any access to the interet or a networked database. Also, I didn't yet know what the end result would look like or how I was going to build it, so I took what I knew and this project happened.
 
-In the end, the kiosk computer did have access to a server and the internet, so I started developing a different method, one that would be easier to maintain and modify by others, something with more capabililities that would appeal to a broader audience. And something that could still export static web pages if needed.
-
-That project is being built as simply [Photo Kiosk](https://github.com/corneliusdavid/PhotoKiosk). Therefore, no further modifications are planned for this one.
+In the end, the kiosk computer did have access to a server and the internet, so I started developing a different method, one that would be easier to maintain and modify by others, something with more capabililities that would appeal to a broader audience. And something that could still export static web pages if needed. (However, there's no urgent need and no requests to finish it, so I don't know if/when I'll ever get it done.) That project is being built as simply [Photo Kiosk](https://github.com/corneliusdavid/PhotoKiosk).
 
 
 ### The Windows program ###
