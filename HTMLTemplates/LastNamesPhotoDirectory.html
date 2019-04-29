@@ -9,7 +9,6 @@
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery.fancybox.js?v=2.1.5"></script>
 	<script type="text/javascript" src="js/jquery.fancybox-buttons.js?v=1.0.5"></script>
-	<script type="text/javascript" src="js/SmoothScroll.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 	<link rel="stylesheet" type="text/css" href="css/styles.css" />
 	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" />
@@ -41,16 +40,16 @@
 <body>
 	<script src="js/bootstrap.js"></script>
 
-    <div class="row">
-      <#PhotoList PhotoRowTemplate="LastNamePhotoRow.htm">
-    </div>
+  <div class="row">
+    <#PhotoList PhotoRowTemplate="LastNamePhotoRow.htm">
+  </div>
 
-	<nav class="navbar navbar-inverse navbar-fixed-bottom">
-		<div class="container">
+	<nav class="navbar navbar-inverse navbar fixed-bottom navbar-light" style="background-color: #7e8b94;">
+		<div class="container" style="max-width:100%">
 			<div class="btn-group" role="group">
 				<#IndexButtons NavBarTemplate="NavBarButtons.htm">
-				<a class="btn btn-default navbar-btn" disabled="disabled">LAST Names <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span></a>
-				<a class="btn btn-info navbar-btn" href="FirstNamesPhotoDirectory.html">FIRST Names <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span></a>
+				<a class="btn btn-default navbar-btn" disabled="disabled">LAST Names<span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span></a>
+				<a class="btn btn-info navbar-btn" href="FirstNamesPhotoDirectory.html">FIRST Names<span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span></a>
 			</div>
 		</div>
 	</nav>
