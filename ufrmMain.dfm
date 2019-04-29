@@ -206,11 +206,13 @@ object frmPicSSConvert: TfrmPicSSConvert
     object actSetRootPicFolder: TBrowseForFolder
       DialogCaption = 'Set Root Picture Folder'
       BrowseOptions = [bifBrowseForComputer, bifNewDialogStyle, bifNoNewFolderButton, bifUseNewUI, bifValidate]
+      BrowseOptionsEx = []
       ImageIndex = 0
     end
     object actSetWebTemplateFolder: TBrowseForFolder
       DialogCaption = 'Select HTML Template Folder'
       BrowseOptions = [bifBrowseForComputer, bifNewDialogStyle, bifNoNewFolderButton, bifUseNewUI, bifValidate]
+      BrowseOptionsEx = []
       ImageIndex = 0
       BeforeExecute = actSetWebTemplateFolderBeforeExecute
       OnAccept = actSetWebTemplateFolderAccept
@@ -218,6 +220,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     object actSetWebOutputFolder: TBrowseForFolder
       DialogCaption = 'Select HTML Output Folder'
       BrowseOptions = [bifBrowseForComputer, bifNewDialogStyle, bifUseNewUI, bifValidate]
+      BrowseOptionsEx = []
       ImageIndex = 0
       BeforeExecute = actSetWebOutputFolderBeforeExecute
       OnAccept = actSetWebOutputFolderAccept
@@ -232,7 +235,7 @@ object frmPicSSConvert: TfrmPicSSConvert
     Left = 456
     Top = 112
     Bitmap = {
-      494C010102000500040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010102000500080010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
       0000000000000000000000000000000000000000000053B6E40037ABE4003BAE
       E60039ACE5003AADE6003AADE6003AADE6003AADE60039ACE5003CAEE60037AA

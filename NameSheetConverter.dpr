@@ -4,7 +4,6 @@ uses
   Vcl.Forms,
   ufrmMain in 'ufrmMain.pas' {frmPicSSConvert},
   udmChurchPicsWebBroker in 'udmChurchPicsWebBroker.pas' {dmChurchPicsWebBroker: TDataModule},
-  uSearchRecList in 'V:\lib\CorneliusConcepts\uSearchRecList.pas',
   Vcl.Themes,
   Vcl.Styles;
 
@@ -13,7 +12,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  TStyleManager.TrySetStyle('Cyan Night');
+  TStyleManager.TrySetStyle('Amethyst Kamri');
   Application.CreateForm(TfrmPicSSConvert, frmPicSSConvert);
   Application.CreateForm(TdmChurchPicsWebBroker, dmChurchPicsWebBroker);
   Application.Run;

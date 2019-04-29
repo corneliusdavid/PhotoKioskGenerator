@@ -239,7 +239,7 @@ procedure TfrmPicSSConvert.GenerateWebPagesFromTemplates(const TemplateFolder, O
                                                   SpreadsheetFilename: string;
                                                   const SSFormat: SpreadSheetFormat);
 begin
-  AddLog(Format('Reading spreadsheet: %s', [SpreadsheetFilename]));
+  AddLog(Format('Reading spreadsheet: %s', [ExtractFileName(SpreadsheetFilename)]));
   ParseSpreadsheetToDataSet(SpreadsheetFilename, SSFormat);
 
   if dmChurchPicsWebBroker.cdsChurchPics.RecordCount = 0 then

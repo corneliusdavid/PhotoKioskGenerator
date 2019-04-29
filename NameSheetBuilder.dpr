@@ -13,7 +13,7 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  TStyleManager.TrySetStyle('Cyan Night');
+  TStyleManager.TrySetStyle('Smokey Quartz Kamri');
   Application.CreateForm(TfrmNameSheetBuilder, frmNameSheetBuilder);
   Application.CreateForm(TdmNameSheetData, dmNameSheetData);
   Application.Run;
