@@ -5,7 +5,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
   BorderStyle = bsSingle
   BorderWidth = 10
   Caption = 'Name Sheet Builder'
-  ClientHeight = 490
+  ClientHeight = 454
   ClientWidth = 499
   Color = clBtnFace
   Constraints.MinWidth = 480
@@ -19,7 +19,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
   OnClose = FormClose
   DesignSize = (
     499
-    490)
+    454)
   PixelsPerInch = 96
   TextHeight = 16
   object Label1: TLabel
@@ -50,7 +50,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
   end
   object grpDatabase: TGroupBox
     Left = 34
-    Top = 80
+    Top = 64
     Width = 417
     Height = 143
     Anchors = [akTop]
@@ -93,7 +93,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
   end
   object GroupBox1: TGroupBox
     Left = 34
-    Top = 229
+    Top = 213
     Width = 417
     Height = 188
     Anchors = [akTop]
@@ -180,7 +180,7 @@ object frmNameSheetBuilder: TfrmNameSheetBuilder
   end
   object btnGenSpreadsheets: TBitBtn
     Left = 34
-    Top = 423
+    Top = 407
     Width = 177
     Height = 35
     Caption = '&Generate Spreadsheets'
