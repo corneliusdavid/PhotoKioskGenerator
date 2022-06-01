@@ -39,9 +39,7 @@ __history/
 *.groupproj
 *.xlsx
 *.zip
-Web/pictures/
 Web/LastNamesPhotoDirectory.html
 Web/FirstNamesPhotoDirectory.html
-Web/js/_jquery.js
 Web/ChurchPicSpreadsheetConverter.exe - Shortcut.lnk
-Web/pics/
+
