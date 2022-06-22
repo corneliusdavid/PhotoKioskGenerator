@@ -4,7 +4,7 @@ This project was built to generate a set of static web pages of photos for peopl
 
 The reason it was designed to generate static files instead of a dynamic site pulling names and photos out of a database was partly because the original data came from a spreadsheet and partly because it was unknown whether the kiosk computer would have any access to the interet or a networked database. Also, I didn't yet know what the end result would look like or how I was going to build it, so I took what I knew and this project happened.
 
-In the end, the kiosk computer did have access to a server and the internet, so I started developing a different method, one that would be easier to maintain and modify by others, something with more capabililities that would appeal to a broader audience. And something that could still export static web pages if needed. (However, there's no urgent need and no requests to finish it, so I don't know if/when I'll ever get it done.) That project is being built as simply [Photo Kiosk](https://github.com/corneliusdavid/PhotoKiosk).
+In the end, the kiosk computer did have access to a server and the internet, so I started developing a different method, one that would be easier to maintain and modify by others, something with more capabililities that would appeal to a broader audience. However, other priorities took over and the project was abandoned.
 
 
 ### The Windows program ###
