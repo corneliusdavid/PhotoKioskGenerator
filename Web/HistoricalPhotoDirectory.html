@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <title>Beaverton SDA Church Photo Directory</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="robots" content="noindex" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/jquery.fancybox.js?v=2.1.5"></script>
+	<script type="text/javascript" src="js/jquery.fancybox-buttons.js?v=1.0.5"></script>
+	<script type="text/javascript" src="js/SmoothScroll.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css?v=2.1.5" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("body").css("display", "none");
+			$("body").fadeIn(700);
+			$(".fancybox").fancybox({
+                padding: 10,
+                margin: 5,
+                openEffect : 'elastic',
+				openSpeed  : 250,
+				closeEffect : 'elastic',
+				closeSpeed  : 250,
+				closeClick : true,
+                helpers : {
+                    overlay : {
+                        closeClick : false
+                    },
+                    title : {
+                        type : 'inside', position : 'bottom'
+                    }
+                }
+			});
+        });
+    </script>
+  </head>
+<body>
+	<script src="js/bootstrap.js"></script>
+
+    <div class="row">
+      <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-1 col-sm-6 col-xs-12">
+        <div class="person-box">
+            <div class="person-img">
+            <a name="Pastors"></a>
+                <a href="./pics/TEDDY094.JPG" class="fancybox" title="Payne, Pastor Rodney II"><img src="./pics/TEDDY094.JPG"></a>
+            </div>
+            <div class="person_txt">
+                <div class="FirstNames">Senior Pastor, 2000 - Current</div>
+                <div class="BoldName">Pastor Rodney Payne II</div>
+                <div class="FirstNames">Rodney II &amp; Brenda</div>
+                <div class="ChildNames">Rodney III</div>
+            </div>
+        </div>
+    </div>
+    <!--div class="col-lg-6 col-lg-offset-5 col-md-6 col-md-offset-5 col-sm-6 col-sm-offset-5 col-xs-6 col-xs-offset-5"-->
+    <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-1 col-sm-6 col-xs-12">
+        <div class="person-box">
+            <div class="person-img">
+                <a href="./pics/NOPIC.jpg" class="fancybox" title="Withers, Pastor Sara and Pastor Josh"><img src="./pics/NOPIC.jpg"></a>
+            </div>
+            <div class="person_txt">
+                <div class="FirstNames">Associate Pastors, 2012 - Current</div>
+                <div class="BoldName">Pastors Josh &amp; Sara Withers</div>
+                <div class="FirstNames">Josh &amp; Sara</div>
+                <div class="ChildNames">Tommy</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-1 col-sm-6 col-xs-12">
+        <div class="person-box">
+            <div class="person-img">
+                <a href="./pics/NOPIC.jpg" class="fancybox" title="Withers, Pastor Sara and Pastor Josh"><img src="./pics/NOPIC.jpg"></a>
+            </div>
+            <div class="person_txt">
+                <div class="FirstNames">Associate Pastor, 2006 - 2011</div>
+                <div class="BoldName">Pastor Julius Jones</div>
+                <div class="FirstNames">Julus and Gayle</div>
+                <div class="ChildNames"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-lg-offset-2 col-md-4 col-md-offset-1 col-sm-6 col-xs-12">
+        <div class="person-box">
+            <div class="person-img">
+                <a href="./pics/NOPIC.jpg" class="fancybox" title="Withers, Pastor Sara and Pastor Josh"><img src="./pics/NOPIC.jpg"></a>
+            </div>
+            <div class="person_txt">
+                <div class="FirstNames">Associate Pastor, 2003 - 2004</div>
+                <div class="BoldName">Pastor Ron Torquelson</div>
+                <div class="FirstNames">Ron and Jenny</div>
+                <div class="ChildNames"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	<nav class="navbar navbar-inverse navbar-fixed-bottom navbar-center">
+		<div class="container navbar-center">
+			<div class="btn-group navbar-center" role="group">				
+                <a class="btn btn-info navbar-btn" href="#Pastors"><strong>Pastors</strong></a>
+				<a class="btn btn-info navbar-btn navbar-center" href="LastNamesPhotoDirectory.html">LAST Names <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span></a>
+				<a class="btn btn-info navbar-btn navbar-center" href="FirstNamesPhotoDirectory.html">FIRST Names <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true"></span></a>
+			</div>
+		</div>
+	</nav>
+
+  </body>
+</html>
